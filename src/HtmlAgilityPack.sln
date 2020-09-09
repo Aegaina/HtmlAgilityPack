@@ -21,6 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmlAgilityPack.Tests.NetSt
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		HtmlAgilityPack.Shared\HtmlAgilityPack.Shared.projitems*{083d99cd-f083-4122-aa96-4e3a84f3ec01}*SharedItemsImports = 5
 		HtmlAgilityPack.Shared\HtmlAgilityPack.Shared.projitems*{1028002a-bbe2-4ff2-94b7-a8368a8f6887}*SharedItemsImports = 4
 		HtmlAgilityPack.Shared\HtmlAgilityPack.Shared.projitems*{5ba9a0d7-173f-4c4f-affa-3dd6dc2f9a79}*SharedItemsImports = 13
 		HtmlAgilityPack.Shared\HtmlAgilityPack.Shared.projitems*{8dcfde1c-263f-41d4-b518-9b7ee06f7d52}*SharedItemsImports = 4

@@ -1,9 +1,9 @@
-// Description: Html Agility Pack - HTML Parsers, selectors, traversors, manupulators.
+ï»¿// Description: Html Agility Pack - HTML Parsers, selectors, traversors, manupulators.
 // Website & Documentation: http://html-agility-pack.net
 // Forum & Issues: https://github.com/zzzprojects/html-agility-pack
 // License: https://github.com/zzzprojects/html-agility-pack/blob/master/LICENSE
 // More projects: http://www.zzzprojects.com/
-// Copyright © ZZZ Projects Inc. 2014 - 2017. All rights reserved.
+// Copyright ?ZZZ Projects Inc. 2014 - 2017. All rights reserved.
 
 #if !METRO
 
@@ -1780,7 +1780,7 @@ namespace HtmlAgilityPack
                         }
                         catch
                         {
-                            // That’s fine, the content type was unknown so probably not HTML
+                            // ThatæŠ¯ fine, the content type was unknown so probably not HTML
                             // Perhaps trying to figure if the content contains some HTML before would be a better idea.
                         }
                     }
@@ -2006,7 +2006,7 @@ namespace HtmlAgilityPack
                             }
                             catch
                             {
-                                // That’s fine, the content type was unknown so probably not HTML
+                                // ThatæŠ¯ fine, the content type was unknown so probably not HTML
                                 // Perhaps trying to figure if the content contains some HTML before would be a better idea.
                             }
                         }
