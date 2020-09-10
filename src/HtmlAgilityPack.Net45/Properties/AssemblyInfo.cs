@@ -9,7 +9,7 @@ using System.Security;
 [assembly: CLSCompliant(true)]
 #if DEBUG
 // Assembly marked as compliant.
-[assembly: AssemblyTitle("Html Agility Pack - Debug")] //Description
+[assembly: AssemblyTitle("Html Agility Pack (SunfireVer)")] //Description
 #else // release
 #if TRACE
 [assembly: AssemblyTitle("Html Agility Pack - ReleaseTrace")] //Description
@@ -21,7 +21,7 @@ using System.Security;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ZZZ Projects Inc.")]
 [assembly: AssemblyProduct("Html Agility Pack")]
-[assembly: AssemblyCopyright("Copyright ©ZZZ Projects Inc.")]
+[assembly: AssemblyCopyright("Copyright ©ZZZ Projects Inc. & Cathy Zhou")]
 [assembly: AssemblyTrademark("SQL & .NET Tools")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(true)]

@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace HtmlAgilityPack
+{
+    /// <summary>
+    /// Represents methods used to create a concrete HtmlNode instance.
+    /// </summary>
+    public static class HtmlNodeFactory
+    {
+        /// <summary>
+        /// Create a specific type of HtmlNode
+        /// </summary>
+        /// <param name="ownerDoc">The owner document of this node</param>
+        /// <param name="type">The type of this node</param>
+        /// <param name="index"></param>
+        public static HtmlNode Create(HtmlDocument ownerDoc, HtmlNodeType type, int index)
+        {
+            switch (type)
+            {
+                case HtmlNodeType.Comment:
+                    return new HtmlCommentNode(ownerDoc, index);
+                case HtmlNodeType.Text:
+                    return new HtmlTextNode(ownerDoc, index);
+                case HtmlNodeType.Document:
+                    return new HtmlDocumentNode(ownerDoc, index);
+                default:
+                    return new HtmlElement(ownerDoc, index);
+            }
+        }
+
+        /// <summary>
+        /// Create a specific type of HtmlNode
+        /// </summary>
+        /// <param name="ownerDoc">The owner document of this node</param>
+        /// <param name="type">The type of this node</param>
+        public static HtmlNode Create(HtmlDocument ownerDoc, HtmlNodeType type)
+        {
+            return Create(ownerDoc, type, -1);
+        }
+    }
+}

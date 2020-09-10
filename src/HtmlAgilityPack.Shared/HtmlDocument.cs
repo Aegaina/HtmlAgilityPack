@@ -70,7 +70,7 @@ namespace HtmlAgilityPack
         private Encoding _declaredencoding;
         private HtmlNode _documentnode;
         private bool _fullcomment;
-		private int _index;
+        private int _index;
         internal Dictionary<string, HtmlNode> Lastnodes = new Dictionary<string, HtmlNode>();
         private HtmlNode _lastparentnode;
         private int _line;
@@ -194,18 +194,18 @@ namespace HtmlAgilityPack
         /// </summary>
         public bool OptionWriteEmptyNodes;
 
-	    /// <summary>
-	    /// The max number of nested child nodes. 
-	    /// Added to prevent stackoverflow problem when a page has tens of thousands of opening html tags with no closing tags 
-	    /// </summary>
-	    public int OptionMaxNestedChildNodes = 0;
+        /// <summary>
+        /// The max number of nested child nodes. 
+        /// Added to prevent stackoverflow problem when a page has tens of thousands of opening html tags with no closing tags 
+        /// </summary>
+        public int OptionMaxNestedChildNodes = 0;
 
 
-		#endregion
+        #endregion
 
-		#region Static Members
+        #region Static Members
 
-		internal static readonly string HtmlExceptionRefNotChild = "Reference node must be a child of this node";
+        internal static readonly string HtmlExceptionRefNotChild = "Reference node must be a child of this node";
 
         internal static readonly string HtmlExceptionUseIdAttributeFalse = "You need to set UseIdAttribute property to true to enable this feature";
 
@@ -235,7 +235,7 @@ namespace HtmlAgilityPack
                 DefaultBuilder(this);
             }
 
-            _documentnode = CreateNode(HtmlNodeType.Document, 0);
+            _documentnode = HtmlNodeFactory.Create(this, HtmlNodeType.Document, 0);
 #if SILVERLIGHT || METRO || NETSTANDARD1_3 || NETSTANDARD1_6
             OptionDefaultStreamEncoding = Encoding.UTF8;
 #else
@@ -269,7 +269,7 @@ namespace HtmlAgilityPack
         /// </summary>
         public int CheckSum
         {
-            get { return _crc32 == null ? 0 : (int) _crc32.CheckSum; }
+            get { return _crc32 == null ? 0 : (int)_crc32.CheckSum; }
         }
 
         /// <summary>
@@ -346,19 +346,19 @@ namespace HtmlAgilityPack
         }
 
 #if !METRO
-		public void UseAttributeOriginalName(string tagName)
-	    {
-		    foreach (var nod in this.DocumentNode.SelectNodes("//" + tagName))
-		    {
-			    foreach (var attribut in nod.Attributes)
-			    {
-				    attribut.UseOriginalName = true;
-			    }
-		    }
-		}
+        public void UseAttributeOriginalName(string tagName)
+        {
+            foreach (var nod in this.DocumentNode.SelectNodes("//" + tagName))
+            {
+                foreach (var attribut in nod.Attributes)
+                {
+                    attribut.UseOriginalName = true;
+                }
+            }
+        }
 #endif
 
-		public static string GetXmlName(string name, bool isAttribute, bool preserveXmlNamespaces)
+        public static string GetXmlName(string name, bool isAttribute, bool preserveXmlNamespaces)
         {
             string xmlname = string.Empty;
             bool nameisok = true;
@@ -378,7 +378,7 @@ namespace HtmlAgilityPack
                 else
                 {
                     nameisok = false;
-                    byte[] bytes = Encoding.UTF8.GetBytes(new char[] {name[i]});
+                    byte[] bytes = Encoding.UTF8.GetBytes(new char[] { name[i] });
                     for (int j = 0; j < bytes.Length; j++)
                     {
                         xmlname += bytes[j].ToString("x2");
@@ -473,7 +473,7 @@ namespace HtmlAgilityPack
         /// <returns>The new HTML comment node.</returns>
         public HtmlCommentNode CreateComment()
         {
-            return (HtmlCommentNode) CreateNode(HtmlNodeType.Comment);
+            return (HtmlCommentNode)HtmlNodeFactory.Create(this, HtmlNodeType.Comment);
         }
 
         /// <summary>
@@ -505,7 +505,7 @@ namespace HtmlAgilityPack
                 throw new ArgumentNullException("name");
             }
 
-            HtmlNode node = CreateNode(HtmlNodeType.Element);
+            HtmlNode node = HtmlNodeFactory.Create(this, HtmlNodeType.Element);
             node.Name = name;
             return node;
         }
@@ -516,7 +516,7 @@ namespace HtmlAgilityPack
         /// <returns>The new HTML text node.</returns>
         public HtmlTextNode CreateTextNode()
         {
-            return (HtmlTextNode) CreateNode(HtmlNodeType.Text);
+            return (HtmlTextNode)HtmlNodeFactory.Create(this, HtmlNodeType.Text);
         }
 
         /// <summary>
@@ -608,7 +608,7 @@ namespace HtmlAgilityPack
             _declaredencoding = null;
 
             Text = reader.ReadToEnd();
-            _documentnode = CreateNode(HtmlNodeType.Document, 0);
+            _documentnode = HtmlNodeFactory.Create(this, HtmlNodeType.Document, 0);
 
             // this is almost a hack, but it allows us not to muck with the original parsing code
             try
@@ -623,7 +623,7 @@ namespace HtmlAgilityPack
             return _streamencoding;
         }
 
-     
+
         /// <summary>
         /// Detects the encoding of an HTML text.
         /// </summary>
@@ -752,7 +752,7 @@ namespace HtmlAgilityPack
                 }
                 // ReSharper disable EmptyGeneralCatchClause
                 catch (Exception)
-                    // ReSharper restore EmptyGeneralCatchClause
+                // ReSharper restore EmptyGeneralCatchClause
                 {
                     // void on purpose
                 }
@@ -767,7 +767,7 @@ namespace HtmlAgilityPack
             _declaredencoding = null;
 
             Text = reader.ReadToEnd();
-            _documentnode = CreateNode(HtmlNodeType.Document, 0);
+            _documentnode = HtmlNodeFactory.Create(this, HtmlNodeType.Document, 0);
             Parse();
 
             if (!OptionCheckSyntax || Openednodes == null) return;
@@ -858,7 +858,7 @@ namespace HtmlAgilityPack
         /// <param name="writer">The StreamWriter to which you want to save.</param>
         public void Save(StreamWriter writer)
         {
-            Save((TextWriter) writer);
+            Save((TextWriter)writer);
         }
 
         /// <summary>
@@ -893,26 +893,6 @@ namespace HtmlAgilityPack
         internal HtmlAttribute CreateAttribute()
         {
             return new HtmlAttribute(this);
-        }
-
-        internal HtmlNode CreateNode(HtmlNodeType type)
-        {
-            return CreateNode(type, -1);
-        }
-
-        internal HtmlNode CreateNode(HtmlNodeType type, int index)
-        {
-            switch (type)
-            {
-                case HtmlNodeType.Comment:
-                    return new HtmlCommentNode(this, index);
-
-                case HtmlNodeType.Text:
-                    return new HtmlTextNode(this, index);
-
-                default:
-                    return new HtmlNode(type, this, index);
-            }
         }
 
         internal Encoding GetOutEncoding()
@@ -1025,9 +1005,9 @@ namespace HtmlAgilityPack
                     if (HtmlNode.CanOverlapElement(_currentnode.Name))
                     {
                         // this is a hack: add it as a text node
-                        HtmlNode closenode = CreateNode(HtmlNodeType.Text, _currentnode._outerstartindex);
+                        HtmlNode closenode = HtmlNodeFactory.Create(this, HtmlNodeType.Text, _currentnode._outerstartindex);
                         closenode._outerlength = _currentnode._outerlength;
-                        ((HtmlTextNode) closenode).Text = ((HtmlTextNode) closenode).Text.ToLowerInvariant();
+                        ((HtmlTextNode)closenode).Text = ((HtmlTextNode)closenode).Text.ToLowerInvariant();
                         if (_lastparentnode != null)
                         {
                             _lastparentnode.AppendChild(closenode);
@@ -1158,7 +1138,7 @@ namespace HtmlAgilityPack
 
             // ok we need to close the prev now
             // create a fake closer node
-            HtmlNode close = new HtmlNode(prev.NodeType, this, -1);
+            HtmlNode close = HtmlNodeFactory.Create(this, prev.NodeType, -1);
             close._endnode = close;
             prev.CloseNode(close);
         }
@@ -1235,7 +1215,7 @@ namespace HtmlAgilityPack
                             break;
 
                         case ParseState.BetweenAttributes:
-                            PushAttributeNameStart(_index - 1, _lineposition -1);
+                            PushAttributeNameStart(_index - 1, _lineposition - 1);
                             break;
 
                         case ParseState.WhichTag:
@@ -1260,9 +1240,9 @@ namespace HtmlAgilityPack
             _state = ParseState.WhichTag;
             if ((_index - 1) <= (Text.Length - 2))
             {
-	            if (Text[_index] == '!' || Text[_index] == '?')
+                if (Text[_index] == '!' || Text[_index] == '?')
                 {
-					PushNodeStart(HtmlNodeType.Comment, _index - 1, _lineposition -1);
+                    PushNodeStart(HtmlNodeType.Comment, _index - 1, _lineposition - 1);
                     PushNodeNameStart(true, _index);
                     PushNodeNameEnd(_index + 1);
                     _state = ParseState.Comment;
@@ -1276,14 +1256,14 @@ namespace HtmlAgilityPack
                         else
                         {
                             _fullcomment = false;
-						}
+                        }
                     }
 
                     return true;
                 }
             }
 
-            PushNodeStart(HtmlNodeType.Element, _index - 1,  _lineposition - 1);
+            PushNodeStart(HtmlNodeType.Element, _index - 1, _lineposition - 1);
             return true;
         }
 
@@ -1315,7 +1295,7 @@ namespace HtmlAgilityPack
             _remainderOffset = Text.Length;
 
             _lastparentnode = _documentnode;
-            _currentnode = CreateNode(HtmlNodeType.Text, 0);
+            _currentnode = HtmlNodeFactory.Create(this, HtmlNodeType.Text, 0);
             _currentattribute = null;
 
             _index = 0;
@@ -1432,7 +1412,7 @@ namespace HtmlAgilityPack
                             continue;
                         }
 
-                        PushAttributeNameStart(_index - 1, _lineposition -1);
+                        PushAttributeNameStart(_index - 1, _lineposition - 1);
                         _state = ParseState.AttributeName;
                         break;
 
@@ -1635,8 +1615,8 @@ namespace HtmlAgilityPack
                         {
                             if (_fullcomment)
                             {
-	                            if (((Text[_index - 2] != '-') || (Text[_index - 3] != '-')) 
-                                    &&  
+                                if (((Text[_index - 2] != '-') || (Text[_index - 3] != '-'))
+                                    &&
                                     ((Text[_index - 2] != '!') || (Text[_index - 3] != '-') ||
                                      (Text[_index - 4] != '-')))
                                 {
@@ -1706,8 +1686,8 @@ namespace HtmlAgilityPack
                                 int c = Text[_index - 1 + 2 + _currentnode.Name.Length];
                                 if ((c == '>') || (IsWhiteSpace(c)))
                                 {
-									// add the script as a text node
-									HtmlNode script = CreateNode(HtmlNodeType.Text,
+                                    // add the script as a text node
+                                    HtmlNode script = HtmlNodeFactory.Create(this, HtmlNodeType.Text,
                                         _currentnode._outerstartindex +
                                         _currentnode._outerlength);
                                     script._outerlength = _index - 1 - script._outerstartindex;
@@ -1717,15 +1697,15 @@ namespace HtmlAgilityPack
 
                                     _currentnode.AppendChild(script);
 
-									// https://www.w3schools.com/jsref/prop_node_innertext.asp
-									// textContent returns the text content of all elements, while innerText returns the content of all elements, except for <script> and <style> elements.
-									// innerText will not return the text of elements that are hidden with CSS (textContent will). ==> The parser do not support that.
-									if (_currentnode.Name.ToLowerInvariant().Equals("script")  || _currentnode.Name.ToLowerInvariant().Equals("style"))
+                                    // https://www.w3schools.com/jsref/prop_node_innertext.asp
+                                    // textContent returns the text content of all elements, while innerText returns the content of all elements, except for <script> and <style> elements.
+                                    // innerText will not return the text of elements that are hidden with CSS (textContent will). ==> The parser do not support that.
+                                    if (_currentnode.Name.ToLowerInvariant().Equals("script") || _currentnode.Name.ToLowerInvariant().Equals("style"))
                                     {
-	                                    _currentnode._isHideInnerText = true;
-									}
+                                        _currentnode._isHideInnerText = true;
+                                    }
 
-									PushNodeStart(HtmlNodeType.Element, _index - 1, _lineposition -1);
+                                    PushNodeStart(HtmlNodeType.Element, _index - 1, _lineposition - 1);
                                     PushNodeNameStart(false, _index - 1 + 2);
                                     _state = ParseState.Tag;
                                     IncrementPosition();
@@ -1756,17 +1736,17 @@ namespace HtmlAgilityPack
         // Potential: "\"", "'", "[", "]", "<", ">", "-", "|", "/", "\\"
         private static List<string> BlockAttributes = new List<string>() { "\"", "'" };
 
-	    private void PushAttributeNameEnd(int index)
-	    {
-		    _currentattribute._namelength = index - _currentattribute._namestartindex;
+        private void PushAttributeNameEnd(int index)
+        {
+            _currentattribute._namelength = index - _currentattribute._namestartindex;
 
-		    if (_currentattribute.Name != null && !BlockAttributes.Contains(_currentattribute.Name))
-		    {
-			    _currentnode.Attributes.Append(_currentattribute);
-		    }
-	    }
+            if (_currentattribute.Name != null && !BlockAttributes.Contains(_currentattribute.Name))
+            {
+                _currentnode.Attributes.Append(_currentattribute);
+            }
+        }
 
-		private void PushAttributeNameStart(int index, int lineposition)
+        private void PushAttributeNameStart(int index, int lineposition)
         {
             _currentattribute = CreateAttribute();
             _currentattribute._namestartindex = index;
@@ -1789,7 +1769,7 @@ namespace HtmlAgilityPack
         {
             bool hasNodeToClose = true;
 
-            while(hasNodeToClose && !_lastparentnode.Closed)
+            while (hasNodeToClose && !_lastparentnode.Closed)
             {
                 hasNodeToClose = false;
 
@@ -1815,7 +1795,7 @@ namespace HtmlAgilityPack
                     CloseParentExplicitEnd();
                     hasNodeToClose = true;
                 }
-            }           
+            }
         }
         private bool IsParentImplicitEnd()
         {
@@ -1875,7 +1855,7 @@ namespace HtmlAgilityPack
                     {
                         isImplicitEnd = nodeName == "p";
                     }
-                    
+
                     break;
                 case "option":
                     isImplicitEnd = nodeName == "option";
@@ -1902,7 +1882,7 @@ namespace HtmlAgilityPack
                     break;
                 case "p":
                     isExplicitEnd = nodeName == "div";
-					break;
+                    break;
                 case "table":
                     isExplicitEnd = nodeName == "table";
                     break;
@@ -1969,7 +1949,7 @@ namespace HtmlAgilityPack
 
         private void CloseParentImplicitEnd()
         {
-            HtmlNode close = new HtmlNode(_lastparentnode.NodeType, this, -1);
+            HtmlNode close = HtmlNodeFactory.Create(this, _lastparentnode.NodeType, -1);
             close._endnode = close;
             close._isImplicitEnd = true;
             _lastparentnode._isImplicitEnd = true;
@@ -1978,7 +1958,7 @@ namespace HtmlAgilityPack
 
         private void CloseParentExplicitEnd()
         {
-            HtmlNode close = new HtmlNode(_lastparentnode.NodeType, this, -1);
+            HtmlNode close = HtmlNodeFactory.Create(this, _lastparentnode.NodeType, -1);
             close._endnode = close;
             _lastparentnode.CloseNode(close);
         }
@@ -2081,7 +2061,7 @@ namespace HtmlAgilityPack
 
         private void PushNodeStart(HtmlNodeType type, int index, int lineposition)
         {
-            _currentnode = CreateNode(type, index);
+            _currentnode = HtmlNodeFactory.Create(this, type, index);
             _currentnode._line = _line;
             _currentnode._lineposition = lineposition;
             _currentnode._streamposition = index;

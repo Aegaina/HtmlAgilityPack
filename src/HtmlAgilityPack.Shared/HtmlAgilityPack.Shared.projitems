@@ -26,6 +26,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)HtmlDocument.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlDocument.PathMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlDocument.Xpath.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HtmlDocumentNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HtmlElement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlElementFlag.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlNameTable.cs" />
@@ -33,6 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)HtmlNode.Encapsulator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlNode.Xpath.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlNodeCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HtmlNodeFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlNodeNavigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlNodeType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlParseError.cs" />

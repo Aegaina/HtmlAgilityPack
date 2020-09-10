@@ -5,6 +5,8 @@
 // More projects: http://www.zzzprojects.com/
 // Copyright ©ZZZ Projects Inc. 2014 - 2017. All rights reserved.
 
+using System.IO;
+
 namespace HtmlAgilityPack
 {
     /// <summary>
@@ -77,5 +79,15 @@ namespace HtmlAgilityPack
         }
 
         #endregion
+
+        /// <summary>
+        /// Saves the current node to the specified TextWriter.
+        /// </summary>
+        /// <param name="outText">The TextWriter to which you want to save.</param>
+        /// <param name="level">identifies the level we are in starting at root with 0</param>
+        public override void WriteTo(TextWriter outText, int level = 0)
+        {
+            outText.Write(_ownerdocument.OptionOutputAsXml ? HtmlDocument.HtmlEncodeWithCompatibility(Text, _ownerdocument.BackwardCompatibility) : Text);
+        }
     }
 }
