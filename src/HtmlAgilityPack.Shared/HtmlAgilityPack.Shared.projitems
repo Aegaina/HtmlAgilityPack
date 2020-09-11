@@ -35,6 +35,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)HtmlNode.Encapsulator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlNode.Xpath.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlNodeCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IHtmlNodeContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NormalHtmlNode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlNodeFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlNodeNavigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlNodeType.cs" />
@@ -42,7 +44,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)HtmlParseErrorCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlTextNode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlWeb.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)HtmlWeb.Xpath.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlWebException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InvalidProgramException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IOLibrary.cs" />

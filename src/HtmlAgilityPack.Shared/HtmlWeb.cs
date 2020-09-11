@@ -987,21 +987,6 @@ namespace HtmlAgilityPack
 
 			return ext;
         }
-
-
-
-
-
-        /// <summary>
-        /// Creates an instance of the given type from the specified Internet resource.
-        /// </summary>
-        /// <param name="url">The requested URL, such as "http://Myserver/Mypath/Myfile.asp".</param>
-        /// <param name="type">The requested type.</param>
-        /// <returns>An newly created instance.</returns>
-        public object CreateInstance(string url, Type type)
-        {
-            return CreateInstance(url, null, null, type);
-        }
 #endif
 
 
@@ -1448,18 +1433,6 @@ namespace HtmlAgilityPack
                 PreHandleDocument(doc);
             }
             return doc;
-        }
-#endif
-#if !(NETSTANDARD1_3 || NETSTANDARD1_6)
-        /// <summary>
-        /// Loads an HTML document from an Internet resource and saves it to the specified XmlTextWriter.
-        /// </summary>
-        /// <param name="htmlUrl">The requested URL, such as "http://Myserver/Mypath/Myfile.asp".</param>
-        /// <param name="writer">The XmlTextWriter to which you want to save to.</param>
-        public void LoadHtmlAsXml(string htmlUrl, XmlTextWriter writer)
-        {
-            HtmlDocument doc = Load(htmlUrl);
-            doc.Save(writer);
         }
 #endif
 #if NET45 || NETSTANDARD1_3 || NETSTANDARD1_6

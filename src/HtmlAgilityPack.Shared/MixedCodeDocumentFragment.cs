@@ -20,7 +20,6 @@ namespace HtmlAgilityPack
         internal int Index;
         internal int Length;
         private int _line;
-        internal int _lineposition;
         internal MixedCodeDocumentFragmentType _type;
 
         #endregion
@@ -86,10 +85,7 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Gets the line position (column) of the fragment.
         /// </summary>
-        public int LinePosition
-        {
-            get { return _lineposition; }
-        }
+        public int LinePosition { get; internal set; }
 
         /// <summary>
         /// Gets the fragment position in the document's stream.

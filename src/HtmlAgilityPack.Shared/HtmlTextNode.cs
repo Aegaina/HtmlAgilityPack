@@ -5,7 +5,10 @@
 // More projects: http://www.zzzprojects.com/
 // Copyright ©ZZZ Projects Inc. 2014 - 2017. All rights reserved.
 
+using System;
 using System.IO;
+using System.Text;
+using System.Xml;
 
 namespace HtmlAgilityPack
 {
@@ -14,6 +17,11 @@ namespace HtmlAgilityPack
     /// </summary>
     public class HtmlTextNode : HtmlNode
     {
+        /// <summary>
+        /// Gets the name of a text node. It is actually defined as '#text'.
+        /// </summary>
+        public const string HtmlNodeTypeName = "#text";
+
         #region Fields
 
         private string _text;
@@ -23,9 +31,9 @@ namespace HtmlAgilityPack
         #region Constructors
 
         internal HtmlTextNode(HtmlDocument ownerdocument, int index)
-            :
-            base(HtmlNodeType.Text, ownerdocument, index)
+            : base(HtmlNodeType.Text, ownerdocument, index)
         {
+            Name = HtmlNodeTypeName;
         }
 
         #endregion
@@ -33,12 +41,25 @@ namespace HtmlAgilityPack
         #region Properties
 
         /// <summary>
+        /// Gets or Sets the text of the node.
+        /// </summary>
+        public string Text
+        {
+            get { return _text; }
+            set
+            {
+                _text = value;
+                IsChanged = true;
+            }
+        }
+
+        /// <summary>
         /// Gets or Sets the HTML between the start and end tags of the object. In the case of a text node, it is equals to OuterHtml.
         /// </summary>
         public override string InnerHtml
         {
-            get { return OuterHtml; }
-            set { _text = value; }
+            get { return Text; }
+            set { Text = value; }
         }
 
         /// <summary>
@@ -46,48 +67,53 @@ namespace HtmlAgilityPack
         /// </summary>
         public override string OuterHtml
         {
-            get
-            {
-                if (_text == null)
-                {
-                    return base.OuterHtml;
-                }
-
-                return _text;
-            }
-        }
-
-        /// <summary>
-        /// Gets or Sets the text of the node.
-        /// </summary>
-        public string Text
-        {
-            get
-            {
-                if (_text == null)
-                {
-                    return base.OuterHtml;
-                }
-
-                return _text;
-            }
-            set
-            {
-                _text = value;
-                SetChanged();
-            }
+            get { return _text; }
         }
 
         #endregion
 
-        /// <summary>
-        /// Saves the current node to the specified TextWriter.
-        /// </summary>
-        /// <param name="outText">The TextWriter to which you want to save.</param>
-        /// <param name="level">identifies the level we are in starting at root with 0</param>
-        public override void WriteTo(TextWriter outText, int level = 0)
+        protected override string GetCurrentNodeText()
         {
-            outText.Write(_ownerdocument.OptionOutputAsXml ? HtmlDocument.HtmlEncodeWithCompatibility(Text, _ownerdocument.BackwardCompatibility) : Text);
+            string s = Text;
+            if (ParentNode.Name != "pre")
+            {
+                // Make some test...
+                s = s.Replace("\n", "").Replace("\r", "").Replace("\t", "");
+            }
+            return s;
+        }
+
+        /// <summary>
+        /// Creates a duplicate of the node.
+        /// </summary>
+        /// <param name="deep">true to recursively clone the subtree under the specified node; false to clone only the node itself.</param>
+        /// <returns>The cloned node.</returns>
+        public override HtmlNode Clone(bool deep)
+        {
+            HtmlTextNode node = base.Clone(deep) as HtmlTextNode;
+            if (node != null)
+            {
+                node.Text = Text;
+            }
+            return node;
+        }
+
+        /// <summary>
+        /// Creates a duplicate of the node.
+        /// </summary>
+        /// <param name="node">The node to duplicate. May not be <c>null</c>.</param>
+        /// <param name="deep">true to recursively clone the subtree under the specified node, false to clone only the node itself.</param>
+        public override void CopyFrom(HtmlNode node, bool deep)
+        {
+            base.CopyFrom(node, deep);
+
+            HtmlTextNode normalSrc = node as HtmlTextNode;
+            if (normalSrc == null)
+            {
+                return;
+            }
+
+            Text = normalSrc.Text;
         }
     }
 }

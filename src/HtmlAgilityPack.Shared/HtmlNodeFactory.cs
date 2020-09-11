@@ -39,5 +39,29 @@ namespace HtmlAgilityPack
         {
             return Create(ownerDoc, type, -1);
         }
+
+        /// <summary>
+        /// Creates an HTML node from a string representing literal HTML.
+        /// </summary>
+        /// <param name="html">The HTML text.</param>
+        /// <returns>The newly created node instance.</returns>
+        public static HtmlNode CreateNode(string html)
+        {
+            // REVIEW: this is *not* optimum...
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(html);
+
+            HtmlElement element = doc.DocumentNode.FirstChild as HtmlElement;
+            while (element != null)
+            {
+                if (element.IsValid())
+                {
+                    return element;
+                }
+                element = element.NextSibling as HtmlElement;
+            }
+
+            return doc.DocumentNode.FirstChild;
+        }
     }
 }

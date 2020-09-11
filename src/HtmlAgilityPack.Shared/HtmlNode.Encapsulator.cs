@@ -15,7 +15,7 @@ using System.Xml.XPath;
 
 namespace HtmlAgilityPack
 {
-    public partial class HtmlNode
+    public partial class HtmlElement
     {
         /// <summary>
         /// Fill an object and go through it's properties and fill them too.
@@ -56,8 +56,6 @@ namespace HtmlAgilityPack
         {
             return (T)GetEncapsulatedData(typeof(T), htmlDocument);
         }
-
-
 
         /// <summary>
         /// Fill an object and go through it's properties and fill them too.
@@ -135,12 +133,12 @@ namespace HtmlAgilityPack
                         if (propertyInfo.IsIEnumerable() == false) // Property is None-IEnumerable
                         {
 
-                            HtmlNode htmlNode = null;
+                            HtmlElement htmlNode = null;
 
                             // try to fill htmlNode based on XPath given
                             try
                             {
-                                htmlNode = source.DocumentNode.SelectSingleNode(xPathAttribute.XPath);
+                                htmlNode = source.DocumentNode.SelectSingleNode(xPathAttribute.XPath) as HtmlElement;
                             }
                             catch (XPathException ex) // if it can not select node based on given xpath
                             {
@@ -326,7 +324,13 @@ namespace HtmlAgilityPack
                                         {
                                             foreach (HtmlNode node in nodeCollection)
                                             {
-                                                string nodeAttributeValue = node.GetAttributeValue(xPathAttribute.AttributeName, null);
+                                                HtmlElement element = node as HtmlElement;
+                                                if (element == null)
+                                                {
+                                                    continue;
+                                                }
+
+                                                string nodeAttributeValue = element.GetAttributeValue(xPathAttribute.AttributeName, null);
                                                 if (nodeAttributeValue == null)
                                                 {
                                                     throw new NodeAttributeNotFoundException("Can not find " + xPathAttribute.AttributeName + " Attribute in " + node.Name + " related to " +

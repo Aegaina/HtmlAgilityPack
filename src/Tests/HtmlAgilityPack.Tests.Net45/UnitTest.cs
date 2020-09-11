@@ -28,7 +28,7 @@ namespace HtmlAgilityPack.Tests.fx._4._5
             {
                 HtmlDocument doc = new HtmlDocument();
                 doc.OptionDefaultStreamEncoding = new UTF8Encoding(false);
-                doc.OptionOutputAsXml = true;
+                //doc.OptionOutputAsXml = true;
                 doc.Save(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "HtmlDoc_empty.html"));
 
                 doc.DocumentNode.AppendChild(BuildContent(doc, ex));
@@ -46,12 +46,18 @@ namespace HtmlAgilityPack.Tests.fx._4._5
             rootNode.AppendChild(captionNode);
 
             HtmlNode node = htmlDoc.CreateElement("strong");
-            node.AppendChild(htmlDoc.CreateTextNode(string.Format("{0}: ", ex.GetType().FullName)));
             captionNode.AppendChild(node);
+            HtmlTextNode textNode = htmlDoc.CreateTextNode(string.Format("{0}: ", ex.GetType().FullName));
+            node.AppendChild(textNode);
 
             node = htmlDoc.CreateElement("span");
             node.AppendChild(htmlDoc.CreateTextNode(ex.Message));
             captionNode.AppendChild(node);
+            //textNode.AppendChild(node);
+
+            HtmlCommentNode commentNode = htmlDoc.CreateComment("This is a comment");
+            captionNode.AppendChild(commentNode);
+            //commentNode.AppendChild(htmlDoc.CreateComment("An inner comment?"));
 
             #endregion
 

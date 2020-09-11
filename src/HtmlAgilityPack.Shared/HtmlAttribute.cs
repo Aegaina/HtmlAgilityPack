@@ -25,14 +25,12 @@ namespace HtmlAgilityPack
         #region Fields
 
         private int _line;
-        internal int _lineposition;
         internal string _name;
         internal int _namelength;
         internal int _namestartindex;
         internal HtmlDocument _ownerdocument; // attribute can exists without a node
-        internal HtmlNode _ownernode;
+        internal NormalHtmlNode _ownernode;
         private AttributeValueQuote _quoteType = AttributeValueQuote.DoubleQuote;
-        internal int _streamposition;
         internal string _value;
         internal int _valuelength;
         internal int _valuestartindex;
@@ -62,10 +60,7 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Gets the column number of this attribute in the document.
         /// </summary>
-        public int LinePosition
-        {
-            get { return _lineposition; }
-        }
+        public int LinePosition { get; internal set; }
 
         /// <summary>
         /// Gets the stream position of the value of this attribute in the document, relative to the start of the document.
@@ -83,12 +78,12 @@ namespace HtmlAgilityPack
             get { return _valuelength; }
         }
 
-	    public bool UseOriginalName { get; set; } = false;
+        public bool UseOriginalName { get; set; } = false;
 
-	    /// <summary>
-		/// Gets the qualified name of the attribute.
-		/// </summary>
-		public string Name
+        /// <summary>
+        /// Gets the qualified name of the attribute.
+        /// </summary>
+        public string Name
         {
             get
             {
@@ -97,8 +92,8 @@ namespace HtmlAgilityPack
                     _name = _ownerdocument.Text.Substring(_namestartindex, _namelength);
                 }
 
-	            return UseOriginalName ? _name : _name.ToLowerInvariant();
-			}
+                return UseOriginalName ? _name : _name.ToLowerInvariant();
+            }
             set
             {
                 if (value == null)
@@ -109,7 +104,7 @@ namespace HtmlAgilityPack
                 _name = value;
                 if (_ownernode != null)
                 {
-                    _ownernode.SetChanged();
+                    _ownernode.IsChanged = true;
                 }
             }
         }
@@ -133,7 +128,7 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Gets the HTML node to which this attribute belongs.
         /// </summary>
-        public HtmlNode OwnerNode
+        public NormalHtmlNode OwnerNode
         {
             get { return _ownernode; }
         }
@@ -150,10 +145,7 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Gets the stream position of this attribute in the document, relative to the start of the document.
         /// </summary>
-        public int StreamPosition
-        {
-            get { return _streamposition; }
-        }
+        public int StreamPosition { get; internal set; }
 
         /// <summary>
         /// Gets or sets the value of the attribute.
@@ -171,11 +163,7 @@ namespace HtmlAgilityPack
                 if (_value == null)
                 {
                     _value = _ownerdocument.Text.Substring(_valuestartindex, _valuelength);
-
-                    if (!_ownerdocument.BackwardCompatibility)
-                    {
-                        _value = HtmlEntity.DeEntitize(_value);
-                    }
+                    _value = HtmlEntity.DeEntitize(_value);
                 }
 
                 return _value;
@@ -186,7 +174,7 @@ namespace HtmlAgilityPack
 
                 if (_ownernode != null)
                 {
-                    _ownernode.SetChanged();
+                    _ownernode.IsChanged = true;
                 }
             }
         }
@@ -197,16 +185,6 @@ namespace HtmlAgilityPack
         public string DeEntitizeValue
         {
             get { return HtmlEntity.DeEntitize(Value); }
-        }
-
-        internal string XmlName
-        {
-            get { return HtmlDocument.GetXmlName(Name, true, OwnerDocument.OptionPreserveXmlNamespaces); }
-        }
-
-        internal string XmlValue
-        {
-            get { return Value; }
         }
 
         /// <summary>

@@ -5,7 +5,10 @@
 // More projects: http://www.zzzprojects.com/
 // Copyright ©ZZZ Projects Inc. 2014 - 2017. All rights reserved.
 
+using System;
 using System.IO;
+using System.Text;
+using System.Xml;
 
 namespace HtmlAgilityPack
 {
@@ -14,6 +17,11 @@ namespace HtmlAgilityPack
     /// </summary>
     public class HtmlCommentNode : HtmlNode
     {
+        /// <summary>
+        /// Gets the name of a comment node. It is actually defined as '#comment'.
+        /// </summary>
+        public const string HtmlNodeTypeName = "#comment";
+
         #region Fields
 
         private string _comment;
@@ -23,9 +31,9 @@ namespace HtmlAgilityPack
         #region Constructors
 
         internal HtmlCommentNode(HtmlDocument ownerdocument, int index)
-            :
-            base(HtmlNodeType.Comment, ownerdocument, index)
+            : base(HtmlNodeType.Comment, ownerdocument, index)
         {
+            Name = HtmlNodeTypeName;
         }
 
         #endregion
@@ -37,15 +45,7 @@ namespace HtmlAgilityPack
         /// </summary>
         public string Comment
         {
-            get
-            {
-                if (_comment == null)
-                {
-                    return base.InnerHtml;
-                }
-
-                return _comment;
-            }
+            get { return _comment; }
             set { _comment = value; }
         }
 
@@ -54,16 +54,8 @@ namespace HtmlAgilityPack
         /// </summary>
         public override string InnerHtml
         {
-            get
-            {
-                if (_comment == null)
-                {
-                    return base.InnerHtml;
-                }
-
-                return _comment;
-            }
-            set { _comment = value; }
+            get { return Comment; }
+            set { Comment = value; }
         }
 
         /// <summary>
@@ -71,41 +63,42 @@ namespace HtmlAgilityPack
         /// </summary>
         public override string OuterHtml
         {
-            get
-            {
-                if (_comment == null)
-                {
-                    return base.OuterHtml;
-                }
-
-                return "<!--" + _comment + "-->";
-            }
+            get { return string.Format("<!--{0}-->", _comment); }
         }
 
         #endregion
 
         /// <summary>
-        /// Saves the current node to the specified TextWriter.
+        /// Creates a duplicate of the node.
         /// </summary>
-        /// <param name="outText">The TextWriter to which you want to save.</param>
-        /// <param name="level">identifies the level we are in starting at root with 0</param>
-        public override void WriteTo(TextWriter outText, int level = 0)
+        /// <param name="deep">true to recursively clone the subtree under the specified node; false to clone only the node itself.</param>
+        /// <returns>The cloned node.</returns>
+        public override HtmlNode Clone(bool deep)
         {
-            if (_ownerdocument.OptionOutputAsXml)
+            HtmlCommentNode node = base.Clone(deep) as HtmlCommentNode;
+            if (node != null)
             {
-                if (!_ownerdocument.BackwardCompatibility && Comment.ToLowerInvariant().StartsWith("<!doctype"))
-                {
-                    outText.Write(Comment);
-                }
-                else
-                {
-                    outText.Write("<!--" + GetXmlComment(this) + " -->");
-                }
+                node.Comment = Comment;
             }
-            else
+            return node;
+        }
+
+        /// <summary>
+        /// Creates a duplicate of the node.
+        /// </summary>
+        /// <param name="node">The node to duplicate. May not be <c>null</c>.</param>
+        /// <param name="deep">true to recursively clone the subtree under the specified node, false to clone only the node itself.</param>
+        public override void CopyFrom(HtmlNode node, bool deep)
+        {
+            base.CopyFrom(node, deep);
+
+            HtmlCommentNode normalSrc = node as HtmlCommentNode;
+            if (normalSrc == null)
             {
-                outText.Write(Comment);
+                return;
             }
+
+            Comment = normalSrc.Comment;
         }
     }
 }

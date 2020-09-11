@@ -19,14 +19,14 @@ namespace HtmlAgilityPack
         #region Fields
 
         internal Dictionary<string, HtmlAttribute> Hashitems = new Dictionary<string, HtmlAttribute>(StringComparer.OrdinalIgnoreCase);
-        private HtmlNode _ownernode;
+        private NormalHtmlNode _ownernode;
         internal List<HtmlAttribute> items = new List<HtmlAttribute>();
 
         #endregion
 
         #region Constructors
 
-        internal HtmlAttributeCollection(HtmlNode ownernode)
+        internal HtmlAttributeCollection(NormalHtmlNode ownernode)
         {
             _ownernode = ownernode;
         }
@@ -71,7 +71,7 @@ namespace HtmlAgilityPack
                 Hashitems[value.Name] = value;
 
                 value._ownernode = _ownernode;
-                _ownernode.SetChanged();
+                _ownernode.IsChanged = true;
             }
         }
 
@@ -219,7 +219,7 @@ namespace HtmlAgilityPack
             item._ownernode = _ownernode;
             items.Insert(index, item);
 
-            _ownernode.SetChanged();
+            _ownernode.IsChanged = true;
         }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace HtmlAgilityPack
             Hashitems.Remove(att.Name);
             items.RemoveAt(index);
 
-            _ownernode.SetChanged();
+            _ownernode.IsChanged = true;
         }
 
         #endregion
@@ -270,7 +270,7 @@ namespace HtmlAgilityPack
             newAttribute._ownernode = _ownernode;
             items.Add(newAttribute);
 
-            _ownernode.SetChanged();
+            _ownernode.IsChanged = true;
             return newAttribute;
         }
 
@@ -281,7 +281,7 @@ namespace HtmlAgilityPack
         /// <returns>The appended attribute.</returns>
         public HtmlAttribute Append(string name)
         {
-            HtmlAttribute att = _ownernode._ownerdocument.CreateAttribute(name);
+            HtmlAttribute att = _ownernode.OwnerDocument.CreateAttribute(name);
             return Append(att);
         }
 
@@ -293,7 +293,7 @@ namespace HtmlAgilityPack
         /// <returns>The appended attribute.</returns>
         public HtmlAttribute Append(string name, string value)
         {
-            HtmlAttribute att = _ownernode._ownerdocument.CreateAttribute(name, value);
+            HtmlAttribute att = _ownernode.OwnerDocument.CreateAttribute(name, value);
             return Append(att);
         }
 
@@ -373,7 +373,7 @@ namespace HtmlAgilityPack
             Hashitems.Clear();
             items.Clear();
 
-            _ownernode.SetChanged();
+            _ownernode.IsChanged = true;
         }
 
         #endregion

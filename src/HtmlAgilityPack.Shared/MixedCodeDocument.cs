@@ -473,7 +473,7 @@ namespace HtmlAgilityPack
         private void SetPosition()
         {
             _currentfragment.Line = _line;
-            _currentfragment._lineposition = _lineposition;
+            _currentfragment.LinePosition = _lineposition;
             _currentfragment.Index = _index - 1;
             _currentfragment.Length = 0;
         }
