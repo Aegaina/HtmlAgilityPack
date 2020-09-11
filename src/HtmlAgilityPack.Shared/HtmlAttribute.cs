@@ -29,7 +29,7 @@ namespace HtmlAgilityPack
         internal int _namelength;
         internal int _namestartindex;
         internal HtmlDocument _ownerdocument; // attribute can exists without a node
-        internal NormalHtmlNode _ownernode;
+        internal HtmlNode _ownernode;
         private AttributeValueQuote _quoteType = AttributeValueQuote.DoubleQuote;
         internal string _value;
         internal int _valuelength;
@@ -128,7 +128,7 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Gets the HTML node to which this attribute belongs.
         /// </summary>
-        public NormalHtmlNode OwnerNode
+        public HtmlNode OwnerNode
         {
             get { return _ownernode; }
         }

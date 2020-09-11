@@ -15,7 +15,7 @@ namespace HtmlAgilityPack
         /// <param name="ownerDoc">The owner document of this node</param>
         /// <param name="type">The type of this node</param>
         /// <param name="index"></param>
-        public static HtmlNode Create(HtmlDocument ownerDoc, HtmlNodeType type, int index)
+        public static HtmlNodeBase Create(HtmlDocument ownerDoc, HtmlNodeType type, int index)
         {
             switch (type)
             {
@@ -35,7 +35,7 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="ownerDoc">The owner document of this node</param>
         /// <param name="type">The type of this node</param>
-        public static HtmlNode Create(HtmlDocument ownerDoc, HtmlNodeType type)
+        public static HtmlNodeBase Create(HtmlDocument ownerDoc, HtmlNodeType type)
         {
             return Create(ownerDoc, type, -1);
         }
@@ -45,7 +45,7 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="html">The HTML text.</param>
         /// <returns>The newly created node instance.</returns>
-        public static HtmlNode CreateNode(string html)
+        public static HtmlNodeBase CreateNode(string html)
         {
             // REVIEW: this is *not* optimum...
             HtmlDocument doc = new HtmlDocument();

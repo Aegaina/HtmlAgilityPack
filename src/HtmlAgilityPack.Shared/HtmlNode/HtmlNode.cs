@@ -11,7 +11,7 @@ namespace HtmlAgilityPack
     /// <summary>
     /// Represents a true HTML node.
     /// </summary>
-    public abstract class NormalHtmlNode : HtmlNode, IHtmlNodeContainer
+    public abstract class HtmlNode : HtmlNodeBase, IHtmlNodeContainer
     {
         /// <summary>
         /// Constructor
@@ -19,7 +19,7 @@ namespace HtmlAgilityPack
         /// <param name="type">The type of this node</param>
         /// <param name="ownerDoc">The owner document of this node</param>
         /// <param name="index"></param>
-        public NormalHtmlNode(HtmlNodeType type, HtmlDocument ownerDoc, int index)
+        public HtmlNode(HtmlNodeType type, HtmlDocument ownerDoc, int index)
             : base(type, ownerDoc, index)
         {
             InitName();
@@ -57,7 +57,7 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Gets the closing tag of the node, null if the node is self-closing.
         /// </summary>
-        public NormalHtmlNode EndNode { get; internal set; }
+        public HtmlNode EndNode { get; internal set; }
 
         /// <summary>
         /// Gets a value indicating if this node has been closed or not.
@@ -168,7 +168,7 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Gets the first child of the node.
         /// </summary>
-        public HtmlNode FirstChild
+        public HtmlNodeBase FirstChild
         {
             get { return !HasChildNodes ? null : ChildNodes[0]; }
         }
@@ -176,7 +176,7 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Gets the last child of the node.
         /// </summary>
-        public HtmlNode LastChild
+        public HtmlNodeBase LastChild
         {
             get { return !HasChildNodes ? null : ChildNodes[ChildNodes.Count - 1]; }
         }
@@ -269,7 +269,7 @@ namespace HtmlAgilityPack
 
             if (HasChildNodes)
             {
-                foreach (HtmlNode node in ChildNodes)
+                foreach (HtmlNodeBase node in ChildNodes)
                 {
                     node.AppendDirectInnerText(sb);
                 }
@@ -282,17 +282,17 @@ namespace HtmlAgilityPack
 
             if (!HasChildNodes || (IsHideInnerText && !isShowHideInnerText)) return;
 
-            foreach (HtmlNode node in ChildNodes)
+            foreach (HtmlNodeBase node in ChildNodes)
             {
                 node.AppendInnerText(sb, isShowHideInnerText);
             }
         }
 
-        internal void CloseNode(NormalHtmlNode endnode, int level = 0)
+        internal void CloseNode(HtmlNode endnode, int level = 0)
         {
             if (level > HtmlDocument.MaxDepthLevel)
             {
-                throw new ArgumentException(HtmlNode.DepthLevelExceptionMessage);
+                throw new ArgumentException(HtmlNodeBase.DepthLevelExceptionMessage);
             }
 
             if (!OwnerDocument.OptionAutoCloseOnEnd)
@@ -300,16 +300,16 @@ namespace HtmlAgilityPack
                 // close all children
                 if (HasChildNodes)
                 {
-                    foreach (HtmlNode child in ChildNodes)
+                    foreach (HtmlNodeBase child in ChildNodes)
                     {
-                        NormalHtmlNode normalChild = child as NormalHtmlNode;
+                        HtmlNode normalChild = child as HtmlNode;
                         if (normalChild != null || normalChild.Closed)
                         {
                             continue;
                         }
 
                         // create a fake closer node
-                        NormalHtmlNode close = HtmlNodeFactory.Create(OwnerDocument, NodeType, -1) as NormalHtmlNode;
+                        HtmlNode close = HtmlNodeFactory.Create(OwnerDocument, NodeType, -1) as HtmlNode;
                         if (close != null)
                         {
                             close.EndNode = close;
@@ -326,7 +326,7 @@ namespace HtmlAgilityPack
                 if (OwnerDocument.Openednodes != null)
                     OwnerDocument.Openednodes.Remove(OuterStartIndex);
 
-                HtmlNode self = Utilities.GetDictionaryValueOrDefault(OwnerDocument.Lastnodes, Name);
+                HtmlNodeBase self = Utilities.GetDictionaryValueOrDefault(OwnerDocument.Lastnodes, Name);
                 if (self == this)
                 {
                     OwnerDocument.Lastnodes.Remove(Name);
@@ -598,7 +598,7 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="newChild">The node to add. May not be null.</param>
         /// <returns>The node added.</returns>
-        public HtmlNode AppendChild(HtmlNode newChild)
+        public HtmlNodeBase AppendChild(HtmlNodeBase newChild)
         {
             if (newChild == null)
             {
@@ -607,7 +607,7 @@ namespace HtmlAgilityPack
 
             ChildNodes.Append(newChild);
 
-            NormalHtmlNode normalChild = newChild as NormalHtmlNode;
+            HtmlNode normalChild = newChild as HtmlNode;
             if (normalChild != null)
             {
                 OwnerDocument.SetIdForNode(newChild, normalChild.GetId());
@@ -627,7 +627,7 @@ namespace HtmlAgilityPack
             if (newChildren == null)
                 throw new ArgumentNullException("newChildren");
 
-            foreach (HtmlNode newChild in newChildren)
+            foreach (HtmlNodeBase newChild in newChildren)
             {
                 AppendChild(newChild);
             }
@@ -635,7 +635,7 @@ namespace HtmlAgilityPack
 
         /// <summary>Sets child nodes identifier.</summary>
         /// <param name="childNode">The chil node.</param>
-        public void SetChildNodesId(HtmlNode childNode)
+        public void SetChildNodesId(HtmlNodeBase childNode)
         {
             IHtmlNodeContainer childContainer = childNode as IHtmlNodeContainer;
             if (childContainer == null)
@@ -643,9 +643,9 @@ namespace HtmlAgilityPack
                 return;
             }
 
-            foreach (HtmlNode child in childContainer.ChildNodes)
+            foreach (HtmlNodeBase child in childContainer.ChildNodes)
             {
-                NormalHtmlNode normalChild = child as NormalHtmlNode;
+                HtmlNode normalChild = child as HtmlNode;
                 if (normalChild != null)
                 {
                     OwnerDocument.SetIdForNode(child, normalChild.GetId());
@@ -671,7 +671,7 @@ namespace HtmlAgilityPack
         /// <param name="newChild">The node to insert. May not be <c>null</c>.</param>
         /// <param name="refChild">The node that is the reference node. The newNode is placed after the refNode.</param>
         /// <returns>The node being inserted.</returns>
-        public HtmlNode InsertAfter(HtmlNode newChild, HtmlNode refChild)
+        public HtmlNodeBase InsertAfter(HtmlNodeBase newChild, HtmlNodeBase refChild)
         {
             if (newChild == null)
             {
@@ -702,7 +702,7 @@ namespace HtmlAgilityPack
 
             if (HasChildNodes) ChildNodes.Insert(index + 1, newChild);
 
-            NormalHtmlNode normalNewChild = newChild as NormalHtmlNode;
+            HtmlNode normalNewChild = newChild as HtmlNode;
             if (normalNewChild != null)
             {
                 OwnerDocument.SetIdForNode(newChild, normalNewChild.GetId());
@@ -719,7 +719,7 @@ namespace HtmlAgilityPack
         /// <param name="newChild">The node to insert. May not be <c>null</c>.</param>
         /// <param name="refChild">The node that is the reference node. The newChild is placed before this node.</param>
         /// <returns>The node being inserted.</returns>
-        public HtmlNode InsertBefore(HtmlNode newChild, HtmlNode refChild)
+        public HtmlNodeBase InsertBefore(HtmlNodeBase newChild, HtmlNodeBase refChild)
         {
             if (newChild == null)
             {
@@ -750,7 +750,7 @@ namespace HtmlAgilityPack
 
             if (HasChildNodes) ChildNodes.Insert(index, newChild);
 
-            NormalHtmlNode normalNewChild = newChild as NormalHtmlNode;
+            HtmlNode normalNewChild = newChild as HtmlNode;
             if (normalNewChild != null)
             {
                 OwnerDocument.SetIdForNode(newChild, normalNewChild.GetId());
@@ -766,7 +766,7 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="newChild">The node to add. May not be <c>null</c>.</param>
         /// <returns>The node added.</returns>
-        public HtmlNode PrependChild(HtmlNode newChild)
+        public HtmlNodeBase PrependChild(HtmlNodeBase newChild)
         {
             if (newChild == null)
             {
@@ -775,7 +775,7 @@ namespace HtmlAgilityPack
 
             ChildNodes.Prepend(newChild);
 
-            NormalHtmlNode normalNewChild = newChild as NormalHtmlNode;
+            HtmlNode normalNewChild = newChild as HtmlNode;
             if (normalNewChild != null)
             {
                 OwnerDocument.SetIdForNode(newChild, normalNewChild.GetId());
@@ -816,9 +816,9 @@ namespace HtmlAgilityPack
             if (OwnerDocument.OptionUseIdAttribute)
             {
                 // remove nodes from id list
-                foreach (HtmlNode child in ChildNodes)
+                foreach (HtmlNodeBase child in ChildNodes)
                 {
-                    NormalHtmlNode normalChild = child as NormalHtmlNode;
+                    HtmlNode normalChild = child as HtmlNode;
                     if (normalChild != null)
                     {
                         OwnerDocument.SetIdForNode(null, normalChild.GetId());
@@ -836,7 +836,7 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="oldChild">The node being removed. May not be <c>null</c>.</param>
         /// <returns>The node removed.</returns>
-        public HtmlNode RemoveChild(HtmlNode oldChild)
+        public HtmlNodeBase RemoveChild(HtmlNodeBase oldChild)
         {
             if (oldChild == null)
             {
@@ -858,7 +858,7 @@ namespace HtmlAgilityPack
             if (HasChildNodes)
                 ChildNodes.Remove(index);
 
-            NormalHtmlNode normalOldChild = oldChild as NormalHtmlNode;
+            HtmlNode normalOldChild = oldChild as HtmlNode;
             if (normalOldChild != null)
             {
                 OwnerDocument.SetIdForNode(null, normalOldChild.GetId());
@@ -875,21 +875,21 @@ namespace HtmlAgilityPack
         /// <param name="oldChild">The node being removed. May not be <c>null</c>.</param>
         /// <param name="keepGrandChildren">true to keep grand children of the node, false otherwise.</param>
         /// <returns>The node removed.</returns>
-        public HtmlNode RemoveChild(HtmlNode oldChild, bool keepGrandChildren)
+        public HtmlNodeBase RemoveChild(HtmlNodeBase oldChild, bool keepGrandChildren)
         {
             if (oldChild == null)
             {
                 throw new ArgumentNullException("oldChild");
             }
 
-            NormalHtmlNode normalOldChild = oldChild as NormalHtmlNode;
+            HtmlNode normalOldChild = oldChild as HtmlNode;
             if ((normalOldChild != null && normalOldChild.HasChildNodes) && keepGrandChildren)
             {
                 // get prev sibling
-                HtmlNode prev = oldChild.PreviousSibling;
+                HtmlNodeBase prev = oldChild.PreviousSibling;
 
                 // reroute grand children to ourselves
-                foreach (HtmlNode grandchild in normalOldChild.ChildNodes)
+                foreach (HtmlNodeBase grandchild in normalOldChild.ChildNodes)
                 {
                     prev = InsertAfter(grandchild, prev);
                 }
@@ -906,7 +906,7 @@ namespace HtmlAgilityPack
         /// <param name="newChild">The new node to put in the child list.</param>
         /// <param name="oldChild">The node being replaced in the list.</param>
         /// <returns>The node replaced.</returns>
-        public HtmlNode ReplaceChild(HtmlNode newChild, HtmlNode oldChild)
+        public HtmlNodeBase ReplaceChild(HtmlNodeBase newChild, HtmlNodeBase oldChild)
         {
             if (newChild == null)
             {
@@ -932,14 +932,14 @@ namespace HtmlAgilityPack
 
             if (HasChildNodes) ChildNodes.Replace(index, newChild);
 
-            NormalHtmlNode normalOldChild = oldChild as NormalHtmlNode;
+            HtmlNode normalOldChild = oldChild as HtmlNode;
             if (normalOldChild != null)
             {
                 OwnerDocument.SetIdForNode(null, normalOldChild.GetId());
                 normalOldChild.RemoveAllID();
             }
 
-            NormalHtmlNode normalNewChild = newChild as NormalHtmlNode;
+            HtmlNode normalNewChild = newChild as HtmlNode;
             if (normalNewChild != null)
             {
                 OwnerDocument.SetIdForNode(newChild, normalNewChild.GetId());
@@ -953,9 +953,9 @@ namespace HtmlAgilityPack
         /// <summary>Removes all id.</summary>
         public void RemoveAllID()
         {
-            foreach (HtmlNode child in ChildNodes)
+            foreach (HtmlNodeBase child in ChildNodes)
             {
-                NormalHtmlNode normalChild = child as NormalHtmlNode;
+                HtmlNode normalChild = child as HtmlNode;
                 if (normalChild != null)
                 {
                     OwnerDocument.SetIdForNode(null, normalChild.GetId());
@@ -995,7 +995,7 @@ namespace HtmlAgilityPack
         /// Gets all Descendant nodes in enumerated list
         /// </summary>
         /// <remarks>DO NOT REMOVE, the empty method is required for Fizzler third party library</remarks>
-        public IEnumerable<HtmlNode> Descendants()
+        public IEnumerable<HtmlNodeBase> Descendants()
         {
             return Descendants(0);
         }
@@ -1004,21 +1004,21 @@ namespace HtmlAgilityPack
         /// Gets all Descendant nodes in enumerated list
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<HtmlNode> Descendants(int level)
+        public IEnumerable<HtmlNodeBase> Descendants(int level)
         {
             if (level > HtmlDocument.MaxDepthLevel)
             {
-                throw new ArgumentException(HtmlNode.DepthLevelExceptionMessage);
+                throw new ArgumentException(HtmlNodeBase.DepthLevelExceptionMessage);
             }
 
-            foreach (HtmlNode child in ChildNodes)
+            foreach (HtmlNodeBase child in ChildNodes)
             {
                 yield return child;
 
                 IHtmlNodeContainer childContainer = child as IHtmlNodeContainer;
                 if (childContainer != null)
                 {
-                    foreach (HtmlNode descendant in childContainer.Descendants(level + 1))
+                    foreach (HtmlNodeBase descendant in childContainer.Descendants(level + 1))
                     {
                         yield return descendant;
                     }
@@ -1031,9 +1031,9 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public IEnumerable<HtmlNode> Descendants(string name)
+        public IEnumerable<HtmlNodeBase> Descendants(string name)
         {
-            foreach (HtmlNode node in Descendants())
+            foreach (HtmlNodeBase node in Descendants())
                 if (String.Equals(node.Name, name, StringComparison.OrdinalIgnoreCase))
                     yield return node;
         }
@@ -1042,13 +1042,13 @@ namespace HtmlAgilityPack
         /// Returns a collection of all descendant nodes of this element, in document order
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<HtmlNode> DescendantsAndSelf()
+        public IEnumerable<HtmlNodeBase> DescendantsAndSelf()
         {
             yield return this;
 
-            foreach (HtmlNode n in Descendants())
+            foreach (HtmlNodeBase n in Descendants())
             {
-                HtmlNode el = n;
+                HtmlNodeBase el = n;
                 if (el != null)
                     yield return el;
             }
@@ -1059,11 +1059,11 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public IEnumerable<HtmlNode> DescendantsAndSelf(string name)
+        public IEnumerable<HtmlNodeBase> DescendantsAndSelf(string name)
         {
             yield return this;
 
-            foreach (HtmlNode node in Descendants())
+            foreach (HtmlNodeBase node in Descendants())
                 if (node.Name == name)
                     yield return node;
         }
@@ -1077,9 +1077,9 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public HtmlNode Element(string name)
+        public HtmlNodeBase Element(string name)
         {
-            foreach (HtmlNode node in ChildNodes)
+            foreach (HtmlNodeBase node in ChildNodes)
                 if (node.Name == name)
                     return node;
             return null;
@@ -1090,9 +1090,9 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public IEnumerable<HtmlNode> Elements(string name)
+        public IEnumerable<HtmlNodeBase> Elements(string name)
         {
-            foreach (HtmlNode node in ChildNodes)
+            foreach (HtmlNodeBase node in ChildNodes)
                 if (node.Name == name)
                     yield return node;
         }
@@ -1104,9 +1104,9 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="deep">true to recursively clone the subtree under the specified node; false to clone only the node itself.</param>
         /// <returns>The cloned node.</returns>
-        public override HtmlNode Clone(bool deep)
+        public override HtmlNodeBase Clone(bool deep)
         {
-            NormalHtmlNode newNode = base.Clone(deep) as NormalHtmlNode;
+            HtmlNode newNode = base.Clone(deep) as HtmlNode;
             if (newNode != null)
             {
                 // attributes
@@ -1122,7 +1122,7 @@ namespace HtmlAgilityPack
                 // closing attributes
                 if (HasClosingAttributes)
                 {
-                    newNode.EndNode = EndNode.Clone(false) as NormalHtmlNode;
+                    newNode.EndNode = EndNode.Clone(false) as HtmlNode;
                     if (newNode.EndNode != null)
                     {
                         foreach (HtmlAttribute att in EndNode.Attributes)
@@ -1136,9 +1136,9 @@ namespace HtmlAgilityPack
                 // child nodes
                 if (deep && HasChildNodes)
                 {
-                    foreach (HtmlNode child in ChildNodes)
+                    foreach (HtmlNodeBase child in ChildNodes)
                     {
-                        HtmlNode newchild = child.Clone(deep);
+                        HtmlNodeBase newchild = child.Clone(deep);
                         newNode.AppendChild(newchild);
                     }
                 }
@@ -1151,11 +1151,11 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="node">The node to duplicate. May not be <c>null</c>.</param>
         /// <param name="deep">true to recursively clone the subtree under the specified node, false to clone only the node itself.</param>
-        public override void CopyFrom(HtmlNode node, bool deep)
+        public override void CopyFrom(HtmlNodeBase node, bool deep)
         {
             base.CopyFrom(node, deep);
 
-            NormalHtmlNode normalSrc = node as NormalHtmlNode;
+            HtmlNode normalSrc = node as HtmlNode;
             if (normalSrc == null)
             {
                 return;
@@ -1176,7 +1176,7 @@ namespace HtmlAgilityPack
                 RemoveAllChildren();
                 if (normalSrc.HasChildNodes)
                 {
-                    foreach (HtmlNode child in normalSrc.ChildNodes)
+                    foreach (HtmlNodeBase child in normalSrc.ChildNodes)
                     {
                         AppendChild(child.Clone(true));
                     }
@@ -1240,7 +1240,7 @@ namespace HtmlAgilityPack
                 WriteAttribute(outText, OwnerDocument.CreateAttribute("_children", ChildNodes.Count.ToString()));
 
                 int i = 0;
-                foreach (HtmlNode n in ChildNodes)
+                foreach (HtmlNodeBase n in ChildNodes)
                 {
                     WriteAttribute(outText, OwnerDocument.CreateAttribute("_child_" + i,
                         n.Name));
@@ -1279,7 +1279,7 @@ namespace HtmlAgilityPack
                 return;
             }
 
-            foreach (HtmlNode node in ChildNodes)
+            foreach (HtmlNodeBase node in ChildNodes)
             {
                 node.WriteTo(outText, level + 1);
             }

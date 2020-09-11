@@ -13,25 +13,25 @@ using System.Xml;
 namespace HtmlAgilityPack
 {
     /// <summary>
-    /// Represents an HTML text node.
+    /// Represents an HTML comment.
     /// </summary>
-    public class HtmlTextNode : HtmlNode
+    public class HtmlCommentNode : HtmlNodeBase
     {
         /// <summary>
-        /// Gets the name of a text node. It is actually defined as '#text'.
+        /// Gets the name of a comment node. It is actually defined as '#comment'.
         /// </summary>
-        public const string HtmlNodeTypeName = "#text";
+        public const string HtmlNodeTypeName = "#comment";
 
         #region Fields
 
-        private string _text;
+        private string _comment;
 
         #endregion
 
         #region Constructors
 
-        internal HtmlTextNode(HtmlDocument ownerdocument, int index)
-            : base(HtmlNodeType.Text, ownerdocument, index)
+        internal HtmlCommentNode(HtmlDocument ownerdocument, int index)
+            : base(HtmlNodeType.Comment, ownerdocument, index)
         {
             Name = HtmlNodeTypeName;
         }
@@ -41,16 +41,12 @@ namespace HtmlAgilityPack
         #region Properties
 
         /// <summary>
-        /// Gets or Sets the text of the node.
+        /// Gets or Sets the comment text of the node.
         /// </summary>
-        public string Text
+        public string Comment
         {
-            get { return _text; }
-            set
-            {
-                _text = value;
-                IsChanged = true;
-            }
+            get { return _comment; }
+            set { _comment = value; }
         }
 
         /// <summary>
@@ -58,8 +54,8 @@ namespace HtmlAgilityPack
         /// </summary>
         public override string InnerHtml
         {
-            get { return Text; }
-            set { Text = value; }
+            get { return Comment; }
+            set { Comment = value; }
         }
 
         /// <summary>
@@ -67,33 +63,22 @@ namespace HtmlAgilityPack
         /// </summary>
         public override string OuterHtml
         {
-            get { return _text; }
+            get { return string.Format("<!--{0}-->", _comment); }
         }
 
         #endregion
-
-        protected override string GetCurrentNodeText()
-        {
-            string s = Text;
-            if (ParentNode.Name != "pre")
-            {
-                // Make some test...
-                s = s.Replace("\n", "").Replace("\r", "").Replace("\t", "");
-            }
-            return s;
-        }
 
         /// <summary>
         /// Creates a duplicate of the node.
         /// </summary>
         /// <param name="deep">true to recursively clone the subtree under the specified node; false to clone only the node itself.</param>
         /// <returns>The cloned node.</returns>
-        public override HtmlNode Clone(bool deep)
+        public override HtmlNodeBase Clone(bool deep)
         {
-            HtmlTextNode node = base.Clone(deep) as HtmlTextNode;
+            HtmlCommentNode node = base.Clone(deep) as HtmlCommentNode;
             if (node != null)
             {
-                node.Text = Text;
+                node.Comment = Comment;
             }
             return node;
         }
@@ -103,17 +88,17 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="node">The node to duplicate. May not be <c>null</c>.</param>
         /// <param name="deep">true to recursively clone the subtree under the specified node, false to clone only the node itself.</param>
-        public override void CopyFrom(HtmlNode node, bool deep)
+        public override void CopyFrom(HtmlNodeBase node, bool deep)
         {
             base.CopyFrom(node, deep);
 
-            HtmlTextNode normalSrc = node as HtmlTextNode;
+            HtmlCommentNode normalSrc = node as HtmlCommentNode;
             if (normalSrc == null)
             {
                 return;
             }
 
-            Text = normalSrc.Text;
+            Comment = normalSrc.Comment;
         }
     }
 }

@@ -55,9 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HtmlDocumentTests.cs" />
-    <Compile Include="HtmlEntityTest.cs" />
-    <Compile Include="HtmlNode.Tests.cs" />
+    <None Include="HtmlDocumentTests.cs" />
+    <None Include="HtmlEntityTest.cs" />
+    <None Include="HtmlNode.Tests.cs" />
     <Compile Include="UnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -34,12 +34,12 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Gets the first node held by this object.
         /// </summary>
-        HtmlNode FirstChild { get; }
+        HtmlNodeBase FirstChild { get; }
 
         /// <summary>
         /// Gets the last child held by this object.
         /// </summary>
-        HtmlNode LastChild { get; }
+        HtmlNodeBase LastChild { get; }
 
         /// <summary>
         /// The depth of the node relative to the opening root html element. This value is used to determine if a document has to many nested html nodes which can cause stack overflows
@@ -138,7 +138,7 @@ namespace HtmlAgilityPack
         /// <param name="newChild">The node to insert. May not be <c>null</c>.</param>
         /// <param name="refChild">The node that is the reference node. The newNode is placed after the refNode.</param>
         /// <returns>The node being inserted.</returns>
-        HtmlNode InsertAfter(HtmlNode newChild, HtmlNode refChild);
+        HtmlNodeBase InsertAfter(HtmlNodeBase newChild, HtmlNodeBase refChild);
 
         /// <summary>
         /// Inserts the specified node immediately before the specified reference node.
@@ -146,14 +146,14 @@ namespace HtmlAgilityPack
         /// <param name="newChild">The node to insert. May not be <c>null</c>.</param>
         /// <param name="refChild">The node that is the reference node. The newChild is placed before this node.</param>
         /// <returns>The node being inserted.</returns>
-        HtmlNode InsertBefore(HtmlNode newChild, HtmlNode refChild);
+        HtmlNodeBase InsertBefore(HtmlNodeBase newChild, HtmlNodeBase refChild);
 
         /// <summary>
         /// Adds the specified node to the beginning of the list of children of this node.
         /// </summary>
         /// <param name="newChild">The node to add. May not be <c>null</c>.</param>
         /// <returns>The node added.</returns>
-        HtmlNode PrependChild(HtmlNode newChild);
+        HtmlNodeBase PrependChild(HtmlNodeBase newChild);
 
         /// <summary>
         /// Adds the specified node list to the beginning of the list of children of this node.
@@ -171,7 +171,7 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="oldChild">The node being removed. May not be <c>null</c>.</param>
         /// <returns>The node removed.</returns>
-        HtmlNode RemoveChild(HtmlNode oldChild);
+        HtmlNodeBase RemoveChild(HtmlNodeBase oldChild);
 
         /// <summary>
         /// Removes the specified child node.
@@ -179,7 +179,7 @@ namespace HtmlAgilityPack
         /// <param name="oldChild">The node being removed. May not be <c>null</c>.</param>
         /// <param name="keepGrandChildren">true to keep grand children of the node, false otherwise.</param>
         /// <returns>The node removed.</returns>
-        HtmlNode RemoveChild(HtmlNode oldChild, bool keepGrandChildren);
+        HtmlNodeBase RemoveChild(HtmlNodeBase oldChild, bool keepGrandChildren);
 
         /// <summary>
         /// Replaces the child node oldChild with newChild node.
@@ -187,7 +187,7 @@ namespace HtmlAgilityPack
         /// <param name="newChild">The new node to put in the child list.</param>
         /// <param name="oldChild">The node being replaced in the list.</param>
         /// <returns>The node replaced.</returns>
-        HtmlNode ReplaceChild(HtmlNode newChild, HtmlNode oldChild);
+        HtmlNodeBase ReplaceChild(HtmlNodeBase newChild, HtmlNodeBase oldChild);
 
         /// <summary>Removes all id.</summary>
         void RemoveAllID();
@@ -205,33 +205,33 @@ namespace HtmlAgilityPack
         /// Gets all Descendant nodes in enumerated list
         /// </summary>
         /// <remarks>DO NOT REMOVE, the empty method is required for Fizzler third party library</remarks>
-        IEnumerable<HtmlNode> Descendants();
+        IEnumerable<HtmlNodeBase> Descendants();
 
         /// <summary>
         /// Gets all Descendant nodes in enumerated list
         /// </summary>
         /// <returns></returns>
-        IEnumerable<HtmlNode> Descendants(int level);
+        IEnumerable<HtmlNodeBase> Descendants(int level);
 
         /// <summary>
         /// Get all descendant nodes with matching name
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        IEnumerable<HtmlNode> Descendants(string name);
+        IEnumerable<HtmlNodeBase> Descendants(string name);
 
         /// <summary>
         /// Returns a collection of all descendant nodes of this element, in document order
         /// </summary>
         /// <returns></returns>
-        IEnumerable<HtmlNode> DescendantsAndSelf();
+        IEnumerable<HtmlNodeBase> DescendantsAndSelf();
 
         /// <summary>
         /// Gets all descendant nodes including this node
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        IEnumerable<HtmlNode> DescendantsAndSelf(string name);
+        IEnumerable<HtmlNodeBase> DescendantsAndSelf(string name);
 
         #endregion
 
@@ -240,13 +240,13 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        HtmlNode Element(string name);
+        HtmlNodeBase Element(string name);
 
         /// <summary>
         /// Gets matching first generation child nodes matching name
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        IEnumerable<HtmlNode> Elements(string name);
+        IEnumerable<HtmlNodeBase> Elements(string name);
     }
 }

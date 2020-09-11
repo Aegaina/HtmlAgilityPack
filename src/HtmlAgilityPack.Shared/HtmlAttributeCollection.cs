@@ -19,14 +19,14 @@ namespace HtmlAgilityPack
         #region Fields
 
         internal Dictionary<string, HtmlAttribute> Hashitems = new Dictionary<string, HtmlAttribute>(StringComparer.OrdinalIgnoreCase);
-        private NormalHtmlNode _ownernode;
+        private HtmlNode _ownernode;
         internal List<HtmlAttribute> items = new List<HtmlAttribute>();
 
         #endregion
 
         #region Constructors
 
-        internal HtmlAttributeCollection(NormalHtmlNode ownernode)
+        internal HtmlAttributeCollection(HtmlNode ownernode)
         {
             _ownernode = ownernode;
         }

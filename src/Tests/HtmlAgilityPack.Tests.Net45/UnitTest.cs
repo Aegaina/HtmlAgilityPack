@@ -28,7 +28,6 @@ namespace HtmlAgilityPack.Tests.fx._4._5
             {
                 HtmlDocument doc = new HtmlDocument();
                 doc.OptionDefaultStreamEncoding = new UTF8Encoding(false);
-                //doc.OptionOutputAsXml = true;
                 doc.Save(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "HtmlDoc_empty.html"));
 
                 doc.DocumentNode.AppendChild(BuildContent(doc, ex));
@@ -36,16 +35,16 @@ namespace HtmlAgilityPack.Tests.fx._4._5
             }
         }
 
-        private HtmlNode BuildContent(HtmlDocument htmlDoc, Exception ex)
+        private HtmlElement BuildContent(HtmlDocument htmlDoc, Exception ex)
         {
-            HtmlNode rootNode = htmlDoc.CreateElement("div");
+            HtmlElement rootNode = htmlDoc.CreateElement("div");
 
             #region caption
 
-            HtmlNode captionNode = htmlDoc.CreateElement("p");
+            HtmlElement captionNode = htmlDoc.CreateElement("p");
             rootNode.AppendChild(captionNode);
 
-            HtmlNode node = htmlDoc.CreateElement("strong");
+            HtmlElement node = htmlDoc.CreateElement("strong");
             captionNode.AppendChild(node);
             HtmlTextNode textNode = htmlDoc.CreateTextNode(string.Format("{0}: ", ex.GetType().FullName));
             node.AppendChild(textNode);
@@ -61,10 +60,10 @@ namespace HtmlAgilityPack.Tests.fx._4._5
 
             #endregion
 
-            HtmlNode listNode = htmlDoc.CreateElement("ul");
+            HtmlElement listNode = htmlDoc.CreateElement("ul");
             rootNode.AppendChild(listNode);
 
-            HtmlNode listItemNode = htmlDoc.CreateElement("li");
+            HtmlElement listItemNode = htmlDoc.CreateElement("li");
             listItemNode.AppendChild(htmlDoc.CreateTextNode(ex.StackTrace.Replace("\r\n", "<br/>")));
             listNode.AppendChild(listItemNode);
 

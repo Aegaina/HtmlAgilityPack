@@ -290,7 +290,7 @@ namespace HtmlAgilityPack
                                     #region Property_Is_IEnumerable<HasXPath-UserDefinedClass>
                                     if (T_Types[0].IsDefinedAttribute(typeof(HasXPathAttribute)) == true) // T is IEnumerable HasXPath-user-defined class (T type Defined XPath properties)
                                     {
-                                        foreach (HtmlNode node in nodeCollection)
+                                        foreach (HtmlNodeBase node in nodeCollection)
                                         {
                                             HtmlDocument innerHtmlDocument = new HtmlDocument();
                                             innerHtmlDocument.LoadHtml(node.InnerHtml);
@@ -322,7 +322,7 @@ namespace HtmlAgilityPack
                                         }
                                         else // It target attribute
                                         {
-                                            foreach (HtmlNode node in nodeCollection)
+                                            foreach (HtmlNodeBase node in nodeCollection)
                                             {
                                                 HtmlElement element = node as HtmlElement;
                                                 if (element == null)
@@ -589,12 +589,12 @@ namespace HtmlAgilityPack
 
 
         /// <summary>
-        /// Returns the part of value of <see cref="HtmlNode"/> you want as .
+        /// Returns the part of value of <see cref="HtmlNodeBase"/> you want as .
         /// </summary>
         /// <param name="htmlNode">A htmlNode instance.</param>
         /// <param name="xPathAttribute">Attribute that includes ReturnType</param>
         /// <returns>String that choosen from HtmlNode as result.</returns>
-        internal static T GetNodeValueBasedOnXPathReturnType<T>(HtmlNode htmlNode, XPathAttribute xPathAttribute)
+        internal static T GetNodeValueBasedOnXPathReturnType<T>(HtmlNodeBase htmlNode, XPathAttribute xPathAttribute)
         {
             if (htmlNode == null)
             {
@@ -638,9 +638,9 @@ namespace HtmlAgilityPack
 
 
         /// <summary>
-        /// Returns parts of values of <see cref="HtmlNode"/> you want as <see cref="IList{T}"/>.
+        /// Returns parts of values of <see cref="HtmlNodeBase"/> you want as <see cref="IList{T}"/>.
         /// </summary>
-        /// <param name="htmlNodeCollection"><see cref="HtmlNodeCollection"/> that you want to retrive each <see cref="HtmlNode"/> value.</param>
+        /// <param name="htmlNodeCollection"><see cref="HtmlNodeCollection"/> that you want to retrive each <see cref="HtmlNodeBase"/> value.</param>
         /// <param name="xPathAttribute">A <see cref="XPathAttribute"/> instnce incules <see cref="ReturnType"/>.</param>
         /// <param name="listGenericType">Type of IList generic you want.</param>
         /// <returns></returns>
@@ -664,7 +664,7 @@ namespace HtmlAgilityPack
 
                 case ReturnType.InnerHtml:
                     {
-                        foreach (HtmlNode node in htmlNodeCollection)
+                        foreach (HtmlNodeBase node in htmlNodeCollection)
                         {
                             result.Add(Convert.ChangeType(node.InnerHtml, listGenericType));
                         }
@@ -674,7 +674,7 @@ namespace HtmlAgilityPack
 
                 case ReturnType.InnerText:
                     {
-                        foreach (HtmlNode node in htmlNodeCollection)
+                        foreach (HtmlNodeBase node in htmlNodeCollection)
                         {
                             result.Add(Convert.ChangeType(node.InnerText, listGenericType));
                         }
@@ -684,7 +684,7 @@ namespace HtmlAgilityPack
 
                 case ReturnType.OuterHtml:
                     {
-                        foreach (HtmlNode node in htmlNodeCollection)
+                        foreach (HtmlNodeBase node in htmlNodeCollection)
                         {
                             result.Add(Convert.ChangeType(node.OuterHtml, listGenericType));
                         }
@@ -796,7 +796,7 @@ namespace HtmlAgilityPack
 
 
     /// <summary>
-    /// Specify which part of <see cref="HtmlNode"/> is requested.
+    /// Specify which part of <see cref="HtmlNodeBase"/> is requested.
     /// </summary>
     public enum ReturnType
     {
@@ -829,7 +829,7 @@ namespace HtmlAgilityPack
 
 
     /// <summary>
-    /// Includes XPath and <see cref="NodeReturnType"/>. XPath for finding html tags and <see cref="NodeReturnType"/> for specify which part of <see cref="HtmlNode"/> you want to return.
+    /// Includes XPath and <see cref="NodeReturnType"/>. XPath for finding html tags and <see cref="NodeReturnType"/> for specify which part of <see cref="HtmlNodeBase"/> you want to return.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public sealed class XPathAttribute : Attribute

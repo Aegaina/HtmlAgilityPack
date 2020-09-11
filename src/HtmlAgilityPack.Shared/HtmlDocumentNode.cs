@@ -9,7 +9,7 @@ namespace HtmlAgilityPack
     /// <summary>
     /// Represents the root node of an HTML document.
     /// </summary>
-    public class HtmlDocumentNode : NormalHtmlNode
+    public class HtmlDocumentNode : HtmlNode
     {
         /// <summary>
         /// Gets the name of the document node. It is actually defined as '#document'.

@@ -715,16 +715,16 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="node">The node to entitize.</param>
         /// <returns>An entitized cloned node.</returns>
-        public static HtmlNode Entitize(HtmlNode node)
+        public static HtmlNodeBase Entitize(HtmlNodeBase node)
         {
             if (node == null)
             {
                 throw new ArgumentNullException("node");
             }
 
-            HtmlNode result = node.Clone(true);
+            HtmlNodeBase result = node.Clone(true);
 
-            NormalHtmlNode normalResult = result as NormalHtmlNode;
+            HtmlNode normalResult = result as HtmlNode;
             if (normalResult != null)
             {
                 if (normalResult.HasAttributes)
@@ -858,7 +858,7 @@ namespace HtmlAgilityPack
 
         private static void Entitize(HtmlNodeCollection collection)
         {
-            foreach (HtmlNode node in collection)
+            foreach (HtmlNodeBase node in collection)
             {
                 Entitize(node);
             }

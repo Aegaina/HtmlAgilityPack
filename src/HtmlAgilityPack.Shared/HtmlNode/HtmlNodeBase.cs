@@ -22,7 +22,7 @@ namespace HtmlAgilityPack
     /// Represents an HTML node.
     /// </summary>
     [DebuggerDisplay("Name: {OriginalName}")]
-    public abstract partial class HtmlNode
+    public abstract partial class HtmlNodeBase
     {
         #region Consts
 
@@ -56,7 +56,7 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Initialize HtmlNode. Builds a list of all tags that have special allowances
         /// </summary>
-        static HtmlNode()
+        static HtmlNodeBase()
         {
             // tags whose content may be anything
             ElementsFlags = new Dictionary<string, HtmlElementFlag>(StringComparer.OrdinalIgnoreCase);
@@ -108,7 +108,7 @@ namespace HtmlAgilityPack
         /// <param name="type"></param>
         /// <param name="ownerdocument"></param>
         /// <param name="index"></param>
-        public HtmlNode(HtmlNodeType type, HtmlDocument ownerdocument, int index)
+        public HtmlNodeBase(HtmlNodeType type, HtmlDocument ownerdocument, int index)
         {
             NodeType = type;
             OwnerDocument = ownerdocument;
@@ -277,7 +277,7 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Gets the HTML node immediately following this element.
         /// </summary>
-        public HtmlNode NextSibling { get; internal set; }
+        public HtmlNodeBase NextSibling { get; internal set; }
 
         /// <summary>
         /// Gets the parent of this node (for nodes that can have parents).
@@ -287,7 +287,7 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Gets the node immediately preceding this node.
         /// </summary>
-        public HtmlNode PreviousSibling { get; internal set; }
+        public HtmlNodeBase PreviousSibling { get; internal set; }
 
         /// <summary>
         /// Gets the stream position of this node in the document, relative to the start of the document.
@@ -309,7 +309,7 @@ namespace HtmlAgilityPack
 
         internal int Namelength { get; set; }
         internal int NameStartIndex { get; set; }
-        internal HtmlNode PrevWithSameName { get; set; }
+        internal HtmlNodeBase PrevWithSameName { get; set; }
         internal bool StartTag { get; set; }
         internal bool IsImplicitEnd { get; set; }
         internal bool IsHideInnerText { get; set; }
@@ -375,7 +375,7 @@ namespace HtmlAgilityPack
         /// Creates a duplicate of the node
         /// </summary>
         /// <returns>The cloned node.</returns>
-        public HtmlNode Clone()
+        public HtmlNodeBase Clone()
         {
             return Clone(true);
         }
@@ -385,7 +385,7 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="newName">The new name of the cloned node. May not be <c>null</c>.</param>
         /// <returns>The cloned node.</returns>
-        public HtmlNode Clone(string newName)
+        public HtmlNodeBase Clone(string newName)
         {
             return Clone(newName, true);
         }
@@ -396,14 +396,14 @@ namespace HtmlAgilityPack
         /// <param name="newName">The new name of the cloned node. May not be null.</param>
         /// <param name="deep">true to recursively clone the subtree under the specified node; false to clone only the node itself.</param>
         /// <returns>The cloned node.</returns>
-        public HtmlNode Clone(string newName, bool deep)
+        public HtmlNodeBase Clone(string newName, bool deep)
         {
             if (string.IsNullOrWhiteSpace(newName))
             {
                 throw new ArgumentNullException(nameof(newName));
             }
 
-            HtmlNode node = Clone(deep);
+            HtmlNodeBase node = Clone(deep);
             node.Name = newName;
             return node;
         }
@@ -413,9 +413,9 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="deep">true to recursively clone the subtree under the specified node; false to clone only the node itself.</param>
         /// <returns>The cloned node.</returns>
-        public virtual HtmlNode Clone(bool deep)
+        public virtual HtmlNodeBase Clone(bool deep)
         {
-            HtmlNode node = HtmlNodeFactory.Create(OwnerDocument, NodeType);
+            HtmlNodeBase node = HtmlNodeFactory.Create(OwnerDocument, NodeType);
             node.Name = OriginalName;
             return node;
         }
@@ -428,7 +428,7 @@ namespace HtmlAgilityPack
         /// Creates a duplicate of the node and the subtree under it.
         /// </summary>
         /// <param name="node">The node to duplicate. May not be <c>null</c>.</param>
-        public void CopyFrom(HtmlNode node)
+        public void CopyFrom(HtmlNodeBase node)
         {
             CopyFrom(node, true);
         }
@@ -438,7 +438,7 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="node">The node to duplicate. May not be <c>null</c>.</param>
         /// <param name="deep">true to recursively clone the subtree under the specified node, false to clone only the node itself.</param>
-        public virtual void CopyFrom(HtmlNode node, bool deep)
+        public virtual void CopyFrom(HtmlNodeBase node, bool deep)
         {
             if (node == null)
             {
@@ -488,9 +488,9 @@ namespace HtmlAgilityPack
         /// Returns a collection of all ancestor nodes of this element.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<HtmlNode> AncestorsAndSelf()
+        public IEnumerable<HtmlNodeBase> AncestorsAndSelf()
         {
-            for (HtmlNode n = this; n != null; n = n.ParentNode as HtmlNode)
+            for (HtmlNodeBase n = this; n != null; n = n.ParentNode as HtmlNodeBase)
                 yield return n;
         }
 
@@ -499,9 +499,9 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public IEnumerable<HtmlNode> AncestorsAndSelf(string name)
+        public IEnumerable<HtmlNodeBase> AncestorsAndSelf(string name)
         {
-            for (HtmlNode n = this; n != null; n = n.ParentNode as HtmlNode)
+            for (HtmlNodeBase n = this; n != null; n = n.ParentNode as HtmlNodeBase)
                 if (n.Name.Equals(name))
                     yield return n;
         }
@@ -604,7 +604,7 @@ namespace HtmlAgilityPack
 
         internal void UpdateLastNode()
         {
-            HtmlNode newLast = null;
+            HtmlNodeBase newLast = null;
             if (PrevWithSameName == null || !PrevWithSameName.StartTag)
             {
                 if (OwnerDocument.Openednodes != null)
@@ -659,7 +659,7 @@ namespace HtmlAgilityPack
                 return Name;
 
             int i = 1;
-            foreach (HtmlNode node in ParentNode.ChildNodes)
+            foreach (HtmlNodeBase node in ParentNode.ChildNodes)
             {
                 if (node.Name != Name) continue;
 

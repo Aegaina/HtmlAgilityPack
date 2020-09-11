@@ -25,7 +25,7 @@ namespace HtmlAgilityPack
         #region Fields
 
         private int _attindex;
-        private HtmlNode _currentnode;
+        private HtmlNodeBase _currentnode;
         private readonly HtmlDocument _doc;
         private readonly HtmlNameTable _nametable;
 
@@ -42,7 +42,7 @@ namespace HtmlAgilityPack
             Reset();
         }
 
-        internal HtmlNodeNavigator(HtmlDocument doc, HtmlNode currentNode)
+        internal HtmlNodeNavigator(HtmlDocument doc, HtmlNodeBase currentNode)
         {
             if (currentNode == null)
             {
@@ -263,7 +263,7 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Gets the current HTML node.
         /// </summary>
-        public HtmlNode CurrentNode
+        public HtmlNodeBase CurrentNode
         {
             get { return _currentnode; }
         }
@@ -278,7 +278,7 @@ namespace HtmlAgilityPack
 #if TRACE_NAVIGATOR
                 InternalTrace(">" + (_currentnode.Attributes.Count > 0));
 #endif
-                NormalHtmlNode normalCurrentNode = _currentnode as NormalHtmlNode;
+                HtmlNode normalCurrentNode = _currentnode as HtmlNode;
                 if (normalCurrentNode == null)
                 {
                     return false;
@@ -298,7 +298,7 @@ namespace HtmlAgilityPack
 #if TRACE_NAVIGATOR
                 InternalTrace(">" + (_currentnode.ChildNodes.Count > 0));
 #endif
-                NormalHtmlNode normalCurrentNode = _currentnode as NormalHtmlNode;
+                HtmlNode normalCurrentNode = _currentnode as HtmlNode;
                 if (normalCurrentNode == null)
                 {
                     return false;
@@ -330,7 +330,7 @@ namespace HtmlAgilityPack
         {
             get
             {
-                NormalHtmlNode normalCurrentNode = _currentnode as NormalHtmlNode;
+                HtmlNode normalCurrentNode = _currentnode as HtmlNode;
                 if (normalCurrentNode != null && _attindex != -1)
                 {
 #if TRACE_NAVIGATOR
@@ -526,7 +526,7 @@ namespace HtmlAgilityPack
 #if TRACE_NAVIGATOR
             InternalTrace("localName=" + localName + ", namespaceURI=" + namespaceURI);
 #endif
-            NormalHtmlNode normalCurrentNode = _currentnode as NormalHtmlNode;
+            HtmlNode normalCurrentNode = _currentnode as HtmlNode;
             if (normalCurrentNode == null)
             {
                 return null;
@@ -630,7 +630,7 @@ namespace HtmlAgilityPack
         /// <returns>true if the HTML attribute is found, otherwise, false. If false, the position of the navigator does not change.</returns>
         public override bool MoveToAttribute(string localName, string namespaceURI)
         {
-            NormalHtmlNode normalCurrentNode = _currentnode as NormalHtmlNode;
+            HtmlNode normalCurrentNode = _currentnode as HtmlNode;
             if (normalCurrentNode == null)
             {
                 return false;
@@ -711,7 +711,7 @@ namespace HtmlAgilityPack
         /// <returns>true if there is a first child node, otherwise false.</returns>
         public override bool MoveToFirstChild()
         {
-            NormalHtmlNode normalCurrentNode = _currentnode as NormalHtmlNode;
+            HtmlNode normalCurrentNode = _currentnode as HtmlNode;
             if (normalCurrentNode == null)
             {
                 return false;
@@ -756,7 +756,7 @@ namespace HtmlAgilityPack
 #if TRACE_NAVIGATOR
             InternalTrace("id=" + id);
 #endif
-            HtmlNode node = _doc.GetElementbyId(id);
+            HtmlNodeBase node = _doc.GetElementbyId(id);
             if (node == null)
             {
 #if TRACE_NAVIGATOR
@@ -820,7 +820,7 @@ namespace HtmlAgilityPack
 #if TRACE_NAVIGATOR
             InternalTrace(null);
 #endif
-            NormalHtmlNode normalCurrentNode = _currentnode as NormalHtmlNode;
+            HtmlNode normalCurrentNode = _currentnode as HtmlNode;
             if (normalCurrentNode == null)
             {
                 return false;
@@ -869,7 +869,7 @@ namespace HtmlAgilityPack
                 return false;
             }
 
-            _currentnode = _currentnode.ParentNode as HtmlNode;
+            _currentnode = _currentnode.ParentNode as HtmlNodeBase;
 #if TRACE_NAVIGATOR
             InternalTrace(">true");
 #endif
