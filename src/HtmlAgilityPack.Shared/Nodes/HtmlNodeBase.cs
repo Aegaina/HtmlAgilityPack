@@ -122,7 +122,7 @@ namespace HtmlAgilityPack
         /// <summary>
         /// Gets or sets this node's name.
         /// </summary>
-        public string Name
+        public virtual string Name
         {
             get
             {

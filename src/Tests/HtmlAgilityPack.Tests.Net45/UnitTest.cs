@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -32,6 +33,10 @@ namespace HtmlAgilityPack.Tests.fx._4._5
 
                 doc.DocumentNode.AppendChild(BuildContent(doc, ex));
                 doc.Save(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "HtmlDoc.html"));
+
+                /*Trace.WriteLine(doc.DocumentNode.OuterHtml);
+                Trace.WriteLine(doc.DocumentNode.InnerHtml);
+                Trace.WriteLine(doc.DocumentNode.InnerText);*/
             }
         }
 
@@ -52,11 +57,9 @@ namespace HtmlAgilityPack.Tests.fx._4._5
             node = htmlDoc.CreateElement("span");
             node.AppendChild(htmlDoc.CreateTextNode(ex.Message));
             captionNode.AppendChild(node);
-            //textNode.AppendChild(node);
 
-            HtmlComment commentNode = htmlDoc.CreateComment("This is a comment");
+            HtmlComment commentNode = htmlDoc.CreateComment(string.Format("Comment on {0}", ex.GetType().Name));
             captionNode.AppendChild(commentNode);
-            //commentNode.AppendChild(htmlDoc.CreateComment("An inner comment?"));
 
             #endregion
 
