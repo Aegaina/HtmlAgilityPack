@@ -19,6 +19,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlAgilityPack.Tests.Net45
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmlAgilityPack.Tests.NetStandard2_0", "Tests\HtmlAgilityPack.Tests.NetStandard2_0\HtmlAgilityPack.Tests.NetStandard2_0.csproj", "{E16A53F8-892C-46AF-B76B-7A9DCAB475DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DB647511-6012-4666-B1FE-72460F51E5AC}"
+	ProjectSection(SolutionItems) = preProject
+		nuget-pack.bat = nuget-pack.bat
+		nuget-push.bat = nuget-push.bat
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		HtmlAgilityPack.Shared\HtmlAgilityPack.Shared.projitems*{083d99cd-f083-4122-aa96-4e3a84f3ec01}*SharedItemsImports = 5

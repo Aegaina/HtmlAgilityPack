@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+    <metadata>
+        <id>$id$</id>
+        <version>$version$-alpha</version>
+        <description>Aegaina's modified version of $id$</description>
+        <authors>ZZZ Projects,Simon Mourrier,Jeff Klawiter,Stephan Grell, Cathy Zhou</authors>
+        <title>$title$</title>
+        <owners>Cathy Zhou</owners>
+        <projectUrl>https://github.com/Aegaina/HtmlAgilityPack</projectUrl>
+        <repository type="git" url="https://github.com/Aegaina/HtmlAgilityPack.git" />
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <copyright>$copyright$</copyright>
+        <tags>HTML</tags>
+    </metadata>
+    <files>
+        <file src="bin\$configuration$\$id$.pdb" target="lib\net45" />
+    </files>
+</package>

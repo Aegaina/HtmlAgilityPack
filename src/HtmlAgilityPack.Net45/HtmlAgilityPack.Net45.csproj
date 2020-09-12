@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HtmlAgilityPack</RootNamespace>
-    <AssemblyName>HtmlAgilityPack.SunfireVer</AssemblyName>
+    <AssemblyName>Aegaina.HtmlAgilityPack</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>HtmlAgilityPack.snk</AssemblyOriginatorKeyFile>
     <SccProjectName>SAK</SccProjectName>
@@ -47,7 +47,7 @@
     <DefineConstants>TRACE;DEBUG;FX40 FX45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\HtmlAgilityPack.SunfireVer.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Aegaina.HtmlAgilityPack.xml</DocumentationFile>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -58,7 +58,7 @@
     <DefineConstants>FX40 FX45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\HtmlAgilityPack.SunfireVer.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Aegaina.HtmlAgilityPack.xml</DocumentationFile>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="HtmlAgilityPack.snk" />
+    <None Include="Package.nuspec" />
   </ItemGroup>
   <Import Project="..\HtmlAgilityPack.Shared\HtmlAgilityPack.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

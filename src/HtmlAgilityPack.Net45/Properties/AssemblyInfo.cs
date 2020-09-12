@@ -14,14 +14,14 @@ using System.Security;
 #if TRACE
 [assembly: AssemblyTitle("Html Agility Pack - ReleaseTrace")] //Description
 #else
-[assembly: AssemblyTitle("Html Agility Pack - Release")] //Description
+[assembly: AssemblyTitle("Html Agility Pack (AGVer)")] //Description
 #endif
 #endif
 [assembly: InternalsVisibleTo("HtmlAgilityPack.Tests, PublicKey=002400000480000094000000060200000024000052534131000400000100010027dc71d8e0b968c7324238e18a4cee4a367f1bf50c9d7a52d91ed46c6a1a584b9142c1d4234c4011d25437c909924079660c434eebe6d2c46412f30520a276e7ca8d8fa7075bb8b9e1c7502ef0e50423b32d469ba750012823fde16989ab42d8428ca5fdd0b06b801788a17239b78e0f75900012a50c5038ab93abbe2ac0d6ee")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ZZZ Projects Inc.")]
 [assembly: AssemblyProduct("Html Agility Pack")]
-[assembly: AssemblyCopyright("Copyright ©ZZZ Projects Inc. & Cathy Zhou")]
+[assembly: AssemblyCopyright("Copyright ©ZZZ Projects Inc.")]
 [assembly: AssemblyTrademark("SQL & .NET Tools")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(true)]
@@ -47,3 +47,4 @@ using System.Security;
 //
 
 [assembly: AssemblyKeyName("")]
+[assembly: AssemblyDescription("Aegaina's modified version of Html Agility Pack")]
