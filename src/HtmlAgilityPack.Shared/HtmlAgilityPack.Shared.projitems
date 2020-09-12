@@ -26,7 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)HtmlDocument.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlDocument.PathMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlDocument.Xpath.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)HtmlDocumentNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Nodes\HtmlDocumentNode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Nodes\HtmlElement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlElementFlag.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlEntity.cs" />

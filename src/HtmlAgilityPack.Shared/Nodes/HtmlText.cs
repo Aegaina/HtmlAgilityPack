@@ -67,7 +67,7 @@ namespace HtmlAgilityPack
         /// </summary>
         public override string OuterHtml
         {
-            get { return _text; }
+            get { return Text; }
         }
 
         #endregion

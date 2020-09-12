@@ -303,7 +303,7 @@ namespace HtmlAgilityPack
                     foreach (HtmlNodeBase child in ChildNodes)
                     {
                         HtmlNode normalChild = child as HtmlNode;
-                        if (normalChild != null || normalChild.Closed)
+                        if (normalChild == null || normalChild.Closed)
                         {
                             continue;
                         }
