@@ -15,7 +15,7 @@ using System.Xml.XPath;
 
 namespace HtmlAgilityPack
 {
-    public partial class HtmlElement
+    public partial class HtmlNode
     {
         /// <summary>
         /// Fill an object and go through it's properties and fill them too.

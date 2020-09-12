@@ -20,7 +20,7 @@ namespace HtmlAgilityPack.Tests
         [OneTimeSetUp]
         public void Setup()
         {
-             
+
 
             _contentDirectory = Path.GetDirectoryName(typeof(HtmlDocumentTests).Assembly.Location).ToString() + "\\files\\";
             //   _contentDirectory = Path.Combine(@"C:\Users\Jonathan\Desktop\Z\zzzproject\HtmlAgilityPack\HtmlAgilityPack.Tests\bin\Debug\files\");
@@ -37,39 +37,39 @@ namespace HtmlAgilityPack.Tests
         [Test]
         public void SelectEventAttributesTest()
         {
-	        String xpath = "//* [@onkeypress or @onkeydown or @onkeyup or @onclick or @ondblclick or @onmousedown or @onmouseup or @onmouseover or @onmousemove or @onmouseout or @onmouseenter or @onmouseleave or @onmousewheel or @oncontextmenu or @onabort or @onbeforeunload or @onerror or @onload or @onmove or @onresize or @onscroll or @onstop or @onunload or @onreset or @onsubmit or @onblur or @onchange or @onfocus or @onfocusin or @onfocusout or @oninput or @onbeforeactivate or @onactivate or @onbefordeactivate or @ondeactivate or @onbounce or @onfinish or @onstart or @onbeforecopy or @onbeforecut or @onbeforeeditfocus or @onbeforepaste or @onbeforeupdate or @oncopy or @oncut or @ondrag or @ondragdrop or @ondragend or @ondragenter or @ondragleave or @ondragover or @ondragstart or @ondrop or @onlosecapture or @onpaste or @onselect or @onselectstart or @oncontrolselect or @onmovestart or @onmoveend or @onafterupdate or @oncellchange or @ondataavailable or @ondatasetchanged or @ondatasetcomplete or @onerrorupdate or @onrowenter or @onrowexit or @onrowsdelete or @onrowsinserted or @onafterprint or @onbeforeprint or @onfilterchange or @onhelp or @onpropertychange or @onreadystatechange]";
-	        var doc = new HtmlAgilityPack.HtmlDocument();
-	        doc.LoadHtml(@"<html><body><div id='foo' onclick='bar'><span> some</span> text</div></body></html>");
-	        for (int i = 0; i < 100000; i++)
-	        {
-		        doc.DocumentNode.SelectNodes(xpath).ToList();
-	        }
+            String xpath = "//* [@onkeypress or @onkeydown or @onkeyup or @onclick or @ondblclick or @onmousedown or @onmouseup or @onmouseover or @onmousemove or @onmouseout or @onmouseenter or @onmouseleave or @onmousewheel or @oncontextmenu or @onabort or @onbeforeunload or @onerror or @onload or @onmove or @onresize or @onscroll or @onstop or @onunload or @onreset or @onsubmit or @onblur or @onchange or @onfocus or @onfocusin or @onfocusout or @oninput or @onbeforeactivate or @onactivate or @onbefordeactivate or @ondeactivate or @onbounce or @onfinish or @onstart or @onbeforecopy or @onbeforecut or @onbeforeeditfocus or @onbeforepaste or @onbeforeupdate or @oncopy or @oncut or @ondrag or @ondragdrop or @ondragend or @ondragenter or @ondragleave or @ondragover or @ondragstart or @ondrop or @onlosecapture or @onpaste or @onselect or @onselectstart or @oncontrolselect or @onmovestart or @onmoveend or @onafterupdate or @oncellchange or @ondataavailable or @ondatasetchanged or @ondatasetcomplete or @onerrorupdate or @onrowenter or @onrowexit or @onrowsdelete or @onrowsinserted or @onafterprint or @onbeforeprint or @onfilterchange or @onhelp or @onpropertychange or @onreadystatechange]";
+            var doc = new HtmlAgilityPack.HtmlDocument();
+            doc.LoadHtml(@"<html><body><div id='foo' onclick='bar'><span> some</span> text</div></body></html>");
+            for (int i = 0; i < 100000; i++)
+            {
+                doc.DocumentNode.SelectNodes(xpath).ToList();
+            }
         }
 
 
-		[Test]
+        [Test]
         public void HtmlAgilityPack_AttributeCollectionBug()
         {
-            { 
-            const string firstAttrName = "first";
-            const string secondAttrName = "second";
-            const string value = "value";
+            {
+                const string firstAttrName = "first";
+                const string secondAttrName = "second";
+                const string value = "value";
 
-            HtmlNode firstNode = HtmlNode.CreateNode("<div></div>");
-            firstNode.Attributes.Add(firstAttrName, value);
+                HtmlElement firstNode = HtmlNodeFactory.CreateNode("<div></div>") as HtmlElement;
+                firstNode.Attributes.Add(firstAttrName, value);
 
-            HtmlNode secondNode = HtmlNode.CreateNode("<div></div>");
-            secondNode.Attributes.Add(secondAttrName, value);
-       
-            secondNode.Attributes[0] = firstNode.Attributes[0];
+                HtmlElement secondNode = HtmlNodeFactory.CreateNode("<div></div>") as HtmlElement;
+                secondNode.Attributes.Add(secondAttrName, value);
 
-            Assert.IsNotNull(secondNode.Attributes[0]);
-            Assert.AreEqual(firstAttrName, secondNode.Attributes[0].Name);
+                secondNode.Attributes[0] = firstNode.Attributes[0];
 
-            Assert.IsNotNull(secondNode.Attributes[firstAttrName], $"'{firstAttrName}' should exist in the collection");
-            Assert.AreEqual(firstAttrName, secondNode.Attributes[firstAttrName].Name);
+                Assert.IsNotNull(secondNode.Attributes[0]);
+                Assert.AreEqual(firstAttrName, secondNode.Attributes[0].Name);
 
-            Assert.IsNull(secondNode.Attributes   [secondAttrName], $"{secondAttrName} should not exist in the collection");
+                Assert.IsNotNull(secondNode.Attributes[firstAttrName], $"'{firstAttrName}' should exist in the collection");
+                Assert.AreEqual(firstAttrName, secondNode.Attributes[firstAttrName].Name);
+
+                Assert.IsNull(secondNode.Attributes[secondAttrName], $"{secondAttrName} should not exist in the collection");
             }
 
             {
@@ -77,10 +77,10 @@ namespace HtmlAgilityPack.Tests
                 const string secondAttrName = "second";
                 const string value = "value";
 
-                HtmlNode firstNode = HtmlNode.CreateNode("<div></div>");
+                HtmlElement firstNode = HtmlNodeFactory.CreateNode("<div></div>") as HtmlElement;
                 firstNode.Attributes.Add(firstAttrName, value);
 
-                HtmlNode secondNode = HtmlNode.CreateNode("<div></div>");
+                HtmlElement secondNode = HtmlNodeFactory.CreateNode("<div></div>") as HtmlElement;
                 secondNode.Attributes.Add(secondAttrName, value);
                 var a = secondNode.Attributes[secondAttrName];
                 secondNode.Attributes[secondAttrName] = firstNode.Attributes[firstAttrName];
@@ -95,30 +95,30 @@ namespace HtmlAgilityPack.Tests
             }
         }
 
-//		[Test]
-//	    public void spanTest()
-//	    {
-//	        // fix has been cancelled for now
-//		    const string test = @"<html>
-//<body>
-//<span>
-//<p>Foo</span></p>
-//<p>Bar</p>
-//</body></html>";
-//		    HtmlDocument doc = new HtmlDocument();
-//		    doc.LoadHtml(test);
+        //		[Test]
+        //	    public void spanTest()
+        //	    {
+        //	        // fix has been cancelled for now
+        //		    const string test = @"<html>
+        //<body>
+        //<span>
+        //<p>Foo</span></p>
+        //<p>Bar</p>
+        //</body></html>";
+        //		    HtmlDocument doc = new HtmlDocument();
+        //		    doc.LoadHtml(test);
 
-//	        const string expected = @"<html>
-//<body>
-//<span>
-//<p>Foo</p>
-//<p>Bar</p>
-//</span>
-//</body></html>";
+        //	        const string expected = @"<html>
+        //<body>
+        //<span>
+        //<p>Foo</p>
+        //<p>Bar</p>
+        //</span>
+        //</body></html>";
 
 
-//            Assert.AreEqual(expected, doc.DocumentNode.OuterHtml); ;
-//		}
+        //            Assert.AreEqual(expected, doc.DocumentNode.OuterHtml); ;
+        //		}
 
         [Test]
         public void TextInsideScriptTagShouldHaveCorrectStreamPosition()
@@ -126,7 +126,7 @@ namespace HtmlAgilityPack.Tests
             {
                 var document = new HtmlDocument();
                 document.LoadHtml(@"<scrapt>foo</scrapt>");
-                var scraptText = document.DocumentNode.FirstChild.FirstChild;
+                var scraptText = (document.DocumentNode.FirstChild as HtmlNode).FirstChild;
                 Assert.AreEqual(8, scraptText.StreamPosition);
                 Assert.AreEqual(1, scraptText.Line);
                 Assert.AreEqual(8, scraptText.LinePosition);
@@ -134,7 +134,7 @@ namespace HtmlAgilityPack.Tests
             {
                 var document = new HtmlDocument();
                 document.LoadHtml(@"<script>foo</script>");
-                var scriptText = document.DocumentNode.FirstChild.FirstChild;
+                var scriptText = (document.DocumentNode.FirstChild as HtmlNode).FirstChild;
                 Assert.AreEqual(8, scriptText.StreamPosition);
                 Assert.AreEqual(1, scriptText.Line);
                 Assert.AreEqual(8, scriptText.LinePosition);
@@ -143,7 +143,7 @@ namespace HtmlAgilityPack.Tests
                 var document = new HtmlAgilityPack.HtmlDocument();
                 document.LoadHtml(@"
 <scrapt>foo</scrapt>");
-                var scraptText = document.DocumentNode.LastChild.FirstChild;
+                var scraptText = (document.DocumentNode.LastChild as HtmlNode).FirstChild;
                 //   var aa = scraptText.FirstChild;
                 Assert.AreEqual(10, scraptText.StreamPosition);
                 Assert.AreEqual(2, scraptText.Line);
@@ -155,7 +155,7 @@ namespace HtmlAgilityPack.Tests
                 var document = new HtmlAgilityPack.HtmlDocument();
                 document.LoadHtml(@"
 <script>foo</script>");
-                var scriptText = document.DocumentNode.LastChild.FirstChild;
+                var scriptText = (document.DocumentNode.LastChild as HtmlNode).FirstChild;
                 Assert.AreEqual(10, scriptText.StreamPosition);
                 Assert.AreEqual(2, scriptText.Line);
                 Assert.AreEqual(8, scriptText.LinePosition);
@@ -198,7 +198,7 @@ namespace HtmlAgilityPack.Tests
 
                 Assert.IsNull(divs);
 
-                HtmlNode ta = doc.DocumentNode.SelectSingleNode("//textarea");
+                HtmlNodeBase ta = doc.DocumentNode.SelectSingleNode("//textarea");
                 Assert.IsTrue(ta.InnerHtml.Contains("div"));
             }
         }
@@ -352,9 +352,9 @@ namespace HtmlAgilityPack.Tests
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            var divNode = htmlDoc.DocumentNode.SelectSingleNode("//div");
+            HtmlElement divNode = htmlDoc.DocumentNode.SelectSingleNode("//div") as HtmlElement;
 
-            var newNode = HtmlAgilityPack.HtmlNode.CreateNode("<body></body>");
+            HtmlElement newNode = HtmlNodeFactory.CreateNode("<body></body>") as HtmlElement;
             newNode.CopyFrom(divNode);
 
             var attribute1 = divNode.Attributes[0];
@@ -401,9 +401,9 @@ namespace HtmlAgilityPack.Tests
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            var divNode = htmlDoc.DocumentNode.SelectSingleNode("//div");
+            HtmlElement divNode = htmlDoc.DocumentNode.SelectSingleNode("//div") as HtmlElement;
 
-            var newNode = divNode.Clone();
+            HtmlElement newNode = divNode.Clone() as HtmlElement;
 
             var attribute1 = divNode.Attributes[0];
 
@@ -454,7 +454,7 @@ namespace HtmlAgilityPack.Tests
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            var h1Node = htmlDoc.DocumentNode.SelectSingleNode("//h1");
+            HtmlElement h1Node = htmlDoc.DocumentNode.SelectSingleNode("//h1") as HtmlElement;
 
             h1Node.AddClass("input");
 
@@ -471,7 +471,7 @@ namespace HtmlAgilityPack.Tests
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            var h1Node = htmlDoc.DocumentNode.SelectSingleNode("//h1");
+            HtmlElement h1Node = htmlDoc.DocumentNode.SelectSingleNode("//h1") as HtmlElement;
 
             h1Node.RemoveClass("input");
 
@@ -488,7 +488,7 @@ namespace HtmlAgilityPack.Tests
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            var h1Node = htmlDoc.DocumentNode.SelectSingleNode("//h1");
+            HtmlElement h1Node = htmlDoc.DocumentNode.SelectSingleNode("//h1") as HtmlElement;
 
             h1Node.ReplaceClass("important", "input");
 
@@ -554,7 +554,7 @@ namespace HtmlAgilityPack.Tests
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            var body = htmlDoc.DocumentNode.SelectSingleNode("//body");
+            HtmlElement body = htmlDoc.DocumentNode.SelectSingleNode("//body") as HtmlElement;
 
             var val = body.Attributes["data-foo"].DeEntitizeValue;
 
@@ -572,7 +572,7 @@ namespace HtmlAgilityPack.Tests
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            var body = htmlDoc.DocumentNode.SelectSingleNode("//body");
+            HtmlElement body = htmlDoc.DocumentNode.SelectSingleNode("//body") as HtmlElement;
 
             var val = body.Attributes["data-foo"].DeEntitizeValue;
 
@@ -598,7 +598,7 @@ namespace HtmlAgilityPack.Tests
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            var body = htmlDoc.DocumentNode.SelectSingleNode("//body");
+            HtmlElement body = htmlDoc.DocumentNode.SelectSingleNode("//body") as HtmlElement;
 
             var val = body.Attributes["data-foo"].DeEntitizeValue;
 
@@ -608,7 +608,7 @@ namespace HtmlAgilityPack.Tests
         [Test]
         public void TestAttributeQuote1()
         {
-	        var html = @"
+            var html = @"
 <html>
 	<body>
 		<div id='foo'  myprop=""@GetMyProp(""myKey"")"">text</div> 
@@ -617,18 +617,18 @@ namespace HtmlAgilityPack.Tests
 ";
 
             var doc = new HtmlDocument();
-	        doc.LoadHtml(html);
-	        var node = doc.DocumentNode.SelectNodes("//div");
-	        var attr = node[0].Attributes["myprop"]; 
-	        attr.Value = "@GetMyProp(\"myKey2\")"; 
-	        var t = doc.DocumentNode.OuterHtml;
+            doc.LoadHtml(html);
+            var node = doc.DocumentNode.SelectNodes("//div");
+            var attr = (node[0] as HtmlElement).Attributes["myprop"];
+            attr.Value = "@GetMyProp(\"myKey2\")";
+            var t = doc.DocumentNode.OuterHtml;
             Assert.IsTrue(!t.Contains("&quot"));
         }
 
         [Test]
         public void TestAttributeQuote2()
         {
-	        var html = @"
+            var html = @"
 <html>
 	<body> 
 		<div id='foo2'  myprop2=""(""myKey"")"">text</div>
@@ -636,12 +636,12 @@ namespace HtmlAgilityPack.Tests
 </html>
 ";
             var doc = new HtmlDocument();
-	        doc.LoadHtml(html);
-	        var node = doc.DocumentNode.SelectNodes("//div"); 
-	        var attr = node[0].Attributes["myprop2"];
-	        attr.Value = "(\"myKey\")"; 
-	        var t = doc.DocumentNode.OuterHtml;
-	        Assert.IsTrue(t.Contains("&quot"));
+            doc.LoadHtml(html);
+            var node = doc.DocumentNode.SelectNodes("//div");
+            var attr = (node[0] as HtmlElement).Attributes["myprop2"];
+            attr.Value = "(\"myKey\")";
+            var t = doc.DocumentNode.OuterHtml;
+            Assert.IsTrue(t.Contains("&quot"));
         }
 
 
@@ -655,7 +655,7 @@ namespace HtmlAgilityPack.Tests
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
-            var body = htmlDoc.DocumentNode.SelectSingleNode("//body");
+            HtmlElement body = htmlDoc.DocumentNode.SelectSingleNode("//body") as HtmlElement;
 
             var val = body.Attributes["data-foo"].Value;
 
@@ -693,17 +693,17 @@ namespace HtmlAgilityPack.Tests
         public void TestCreateNode()
         {
             string output = "<p>text</p>";
-            HtmlNode node1 = HtmlNode.CreateNode(@"
+            HtmlNodeBase node1 = HtmlNodeFactory.CreateNode(@"
             <p>text</p>
             ");
 
-            HtmlNode node2 = HtmlNode.CreateNode(@"
+            HtmlNodeBase node2 = HtmlNodeFactory.CreateNode(@"
                          
             <p>text</p>            
 
             ");
 
-            HtmlNode node3 = HtmlNode.CreateNode(@"   <p>text</p>   ");
+            HtmlNodeBase node3 = HtmlNodeFactory.CreateNode(@"   <p>text</p>   ");
 
             Assert.AreEqual(output, node1.OuterHtml);
             Assert.AreEqual(output, node2.OuterHtml);
@@ -711,14 +711,14 @@ namespace HtmlAgilityPack.Tests
 
             try
             {
-                HtmlNode node4 = HtmlNode.CreateNode("<p>a<p/><p>b</p>");
+                HtmlNodeBase node4 = HtmlNodeFactory.CreateNode("<p>a<p/><p>b</p>");
             }
             catch (Exception e)
             {
                 Assert.AreEqual("Multiple node elments can't be created.", e.Message);
             }
 
-            HtmlNode node5 = HtmlNode.CreateNode(@"/r/n");
+            HtmlNodeBase node5 = HtmlNodeFactory.CreateNode(@"/r/n");
             Assert.AreEqual("/r/n", node5.OuterHtml);
         }
 
@@ -750,7 +750,7 @@ namespace HtmlAgilityPack.Tests
             var html = @"<form></form>";
             var document = new HtmlDocument();
             document.LoadHtml(html);
-            var result = document.DocumentNode.Descendants().Select(dn => new {dn.NodeType, dn.Name, dn.OuterHtml}).ToArray();
+            var result = document.DocumentNode.Descendants().Select(dn => new { dn.NodeType, dn.Name, dn.OuterHtml }).ToArray();
             Assert.AreEqual(html, document.DocumentNode.OuterHtml);
             Assert.AreEqual(1, result.Count());
         }
@@ -761,7 +761,7 @@ namespace HtmlAgilityPack.Tests
             var html = @"<div><1</div>";
             var document = new HtmlDocument();
             document.LoadHtml(html);
-            var result = document.DocumentNode.Descendants().Select(dn => new {dn.NodeType, dn.Name, dn.OuterHtml}).ToArray();
+            var result = document.DocumentNode.Descendants().Select(dn => new { dn.NodeType, dn.Name, dn.OuterHtml }).ToArray();
             Assert.AreEqual(html, document.DocumentNode.OuterHtml);
         }
 
@@ -772,7 +772,7 @@ namespace HtmlAgilityPack.Tests
                 var html = @"<dt>a<dd>b<dd>c<dt>a<dd>b<dd>c";
                 var document = new HtmlDocument();
                 document.LoadHtml(html);
-                var result = document.DocumentNode.Descendants().Select(dn => new {dn.NodeType, dn.Name, dn.OuterHtml}).ToArray();
+                var result = document.DocumentNode.Descendants().Select(dn => new { dn.NodeType, dn.Name, dn.OuterHtml }).ToArray();
 
                 // TODO: Fix issue with last "dd"
                 Assert.AreEqual(html + "</dd>", document.DocumentNode.OuterHtml);
@@ -783,7 +783,7 @@ namespace HtmlAgilityPack.Tests
                 var html = @"<dt>a</dt><dd>b</dd><dd>c</dd><dt>a</dt><dd>b</dd><dd>c</dd>";
                 var document = new HtmlDocument();
                 document.LoadHtml(html);
-                var result = document.DocumentNode.Descendants().Select(dn => new {dn.NodeType, dn.Name, dn.OuterHtml}).ToArray();
+                var result = document.DocumentNode.Descendants().Select(dn => new { dn.NodeType, dn.Name, dn.OuterHtml }).ToArray();
 
                 Assert.AreEqual(html, document.DocumentNode.OuterHtml);
             }
@@ -845,7 +845,7 @@ namespace HtmlAgilityPack.Tests
 </html>";
             var expectedHtml = "InnerText bug DemoThis demonstration should show that the HAP currently parses div tags incorrectly, parsing carriage returns, new lines and tabular indents as text.";
 
-            var doc = new HtmlDocument() {BackwardCompatibility = false};
+            var doc = new HtmlDocument();
             doc.LoadHtml(inHtml);
 
             Assert.AreEqual(expectedHtml, doc.DocumentNode.InnerText);
@@ -868,8 +868,8 @@ namespace HtmlAgilityPack.Tests
             var doc = new HtmlDocument();
             doc.LoadHtml("<html><body></body></html>");
 
-            var div = HtmlNode.CreateNode("<div class='1'/>");
-            var div2 = HtmlNode.CreateNode("<div class='2'/>");
+            HtmlNode div = HtmlNodeFactory.CreateNode("<div class='1'/>") as HtmlNode;
+            var div2 = HtmlNodeFactory.CreateNode("<div class='2'/>");
 
             doc.DocumentNode.ChildNodes.Add(div);
             div.ChildNodes.Add(div2);
@@ -885,8 +885,8 @@ namespace HtmlAgilityPack.Tests
             var doc = new HtmlDocument();
             doc.LoadHtml("<html><body></body></html>");
 
-            var div = HtmlNode.CreateNode("<div class='1'/>");
-            var div2 = HtmlNode.CreateNode("<div class='2'/>");
+            HtmlNode div = HtmlNodeFactory.CreateNode("<div class='1'/>") as HtmlNode;
+            var div2 = HtmlNodeFactory.CreateNode("<div class='2'/>");
 
             div.ChildNodes.Add(div2);
             doc.DocumentNode.ChildNodes.Add(div);
@@ -906,7 +906,7 @@ namespace HtmlAgilityPack.Tests
         //    HtmlDocument htmlDocument = stackoverflowSite.Load("https://stackoverflow.com/?tab=interesting");
         //    StackOverflowPage stackOverflowPage = htmlDocument.DocumentNode.GetEncapsulatedData<StackOverflowPage>();
         //    IEnumerable<StackOverflowQuestion> filtered = stackOverflowPage.Questions.OrderByDescending(new Func<StackOverflowQuestion, int>(x => x.Statistics.Votes));
-           
+
         //    Assert.IsTrue(filtered.Count() > 5);
         //    Assert.IsTrue(filtered.ElementAt(0).Statistics.Votes > 0);
 
@@ -917,7 +917,7 @@ namespace HtmlAgilityPack.Tests
         {
 
             string html = File.ReadAllText(_contentDirectory + "regression.html");
-            HtmlNode node1 = null;
+            HtmlNodeBase node1 = null;
             // Test 1
             CultureInfo cul1 = CultureInfo.CreateSpecificCulture("en-US");
             Thread.CurrentThread.CurrentCulture = cul1;
@@ -932,11 +932,11 @@ namespace HtmlAgilityPack.Tests
             doc2.LoadHtml(html);
             var s = doc2.DocumentNode.OuterHtml;
 
-            HtmlNode node2 = doc2.DocumentNode.SelectSingleNode("//div[@id='mainContents']/h2");
+            HtmlNodeBase node2 = doc2.DocumentNode.SelectSingleNode("//div[@id='mainContents']/h2");
             if (node1?.InnerHtml == node2?.InnerHtml)
 
-                 
-            Assert.AreEqual(node1?.InnerHtml, node2?.InnerHtml);
+
+                Assert.AreEqual(node1?.InnerHtml, node2?.InnerHtml);
             Assert.AreEqual(0, doc2.DocumentNode.OwnerDocument.ParseErrors.Count());
         }
 
@@ -948,34 +948,13 @@ namespace HtmlAgilityPack.Tests
             string html = File.ReadAllText(_contentDirectory + "overflow.html");
             HtmlNode node1 = null;
             // Test 1
-             
+
             HtmlAgilityPack.HtmlDocument doc1 = new HtmlAgilityPack.HtmlDocument();
             doc1.LoadHtml(html);
 
-            Assert.AreEqual(15, doc1.DocumentNode.ChildNodes[4].ChildNodes.Count);
+            Assert.AreEqual(15, (doc1.DocumentNode.ChildNodes[4] as HtmlNode).ChildNodes.Count);
 
             Assert.AreEqual(0, doc1.DocumentNode.OwnerDocument.ParseErrors.Count());
-        }
-
-        [Test]
-        public void SanitizeXmlElementNameWithColon()
-        {
-            var input = @"<RootElement xmlns:MyNamespace=""value"">
-  <value:element />
-</RootElement>";
-            var htmlDoc = new HtmlAgilityPack.HtmlDocument();
-            htmlDoc.LoadHtml(input);
-            htmlDoc.OptionDefaultStreamEncoding = System.Text.Encoding.UTF8;
-            htmlDoc.OptionOutputAsXml = true;
-            htmlDoc.OptionOutputOriginalCase = true;
-            var xmlDoc = htmlDoc.DocumentNode.WriteTo();
-
-            var expected = @"<?xml version=""1.0"" encoding=""utf-8""?>" +
-                           @"<RootElement xmlns:MyNamespace=""value"">
-  <_value3a_element></_value3a_element>
-</RootElement>";
-
-            Assert.AreEqual(expected, xmlDoc);
         }
 
         [Test]
@@ -986,7 +965,7 @@ namespace HtmlAgilityPack.Tests
 
             htmlDoc.LoadHtml(input);
 
-            var aTag = htmlDoc.DocumentNode.SelectSingleNode("//a");
+            HtmlElement aTag = htmlDoc.DocumentNode.SelectSingleNode("//a") as HtmlElement;
             Assert.True(aTag.HasClass("disabled"));
         }
 
@@ -998,30 +977,8 @@ namespace HtmlAgilityPack.Tests
 
             htmlDoc.LoadHtml(input);
 
-            var aTag = htmlDoc.DocumentNode.SelectSingleNode("//a");
+            HtmlElement aTag = htmlDoc.DocumentNode.SelectSingleNode("//a") as HtmlElement;
             Assert.IsNotEmpty(aTag.GetClasses());
-        }
-
-        [Test]
-        public void DoesNotSanitizeXmlElementNameWithColonWhenConfiguredToPreserveXmlNamespaces()
-        {
-            var input = @"<RootElement xmlns:MyNamespace=""value"">
-  <value:element />
-</RootElement>";
-            var htmlDoc = new HtmlAgilityPack.HtmlDocument();
-            htmlDoc.LoadHtml(input);
-            htmlDoc.OptionDefaultStreamEncoding = System.Text.Encoding.UTF8;
-            htmlDoc.OptionOutputAsXml = true;
-            htmlDoc.OptionOutputOriginalCase = true;
-            htmlDoc.OptionPreserveXmlNamespaces = true;
-            var xmlDoc = htmlDoc.DocumentNode.WriteTo();
-
-            var expected = @"<?xml version=""1.0"" encoding=""utf-8""?>" +
-                           @"<RootElement xmlns:MyNamespace=""value"">
-  <value:element></value:element>
-</RootElement>";
-
-            Assert.AreEqual(expected, xmlDoc);
         }
 
         [Test]
@@ -1033,7 +990,7 @@ namespace HtmlAgilityPack.Tests
             var docNode = doc.DocumentNode;
 
             // Check tree is correct
-            
+
             Assert.AreEqual(3, docNode.ChildNodes.Count);
             Assert.AreEqual("p", docNode.ChildNodes[0].Name);
             Assert.AreEqual("div", docNode.ChildNodes[1].Name);
@@ -1059,13 +1016,13 @@ namespace HtmlAgilityPack.Tests
                 Assert.AreEqual(1, docNode.ChildNodes.Count);
                 Assert.AreEqual("p", docNode.ChildNodes[0].Name);
 
-                var pRootNode = docNode.ChildNodes[0];
+                HtmlNode pRootNode = docNode.ChildNodes[0] as HtmlNode;
                 Assert.AreEqual(3, pRootNode.ChildNodes.Count);
                 Assert.AreEqual("Begin", pRootNode.ChildNodes[0].InnerText);
                 Assert.AreEqual("Inner", pRootNode.ChildNodes[1].InnerText);
                 Assert.AreEqual("End", pRootNode.ChildNodes[2].InnerText);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
@@ -1081,12 +1038,12 @@ namespace HtmlAgilityPack.Tests
             {
                 Assert.AreEqual("&quot;&#39;", WebUtility.HtmlEncode("\"'"));
             }
+
             {
                 var input = "<div>z</div>";
                 var doc = new HtmlAgilityPack.HtmlDocument();
-                doc.BackwardCompatibility = true;
                 doc.LoadHtml(input);
-                var divNode = doc.DocumentNode.ChildNodes[0];
+                HtmlElement divNode = doc.DocumentNode.ChildNodes[0] as HtmlElement;
 
                 divNode.Attributes.Add("name", "value1value2");
                 Assert.AreEqual("value1value2", divNode.Attributes[0].Value);
@@ -1096,9 +1053,8 @@ namespace HtmlAgilityPack.Tests
             {
                 var input = "<div>z</div>";
                 var doc = new HtmlAgilityPack.HtmlDocument();
-                doc.BackwardCompatibility = true;
                 doc.LoadHtml(input);
-                var divNode = doc.DocumentNode.ChildNodes[0];
+                HtmlElement divNode = doc.DocumentNode.ChildNodes[0] as HtmlElement;
 
                 divNode.Attributes.Add("name", "value1\"value2");
                 Assert.AreEqual("value1\"value2", divNode.Attributes[0].Value);
@@ -1108,9 +1064,8 @@ namespace HtmlAgilityPack.Tests
             {
                 var input = "<div>z</div>";
                 var doc = new HtmlAgilityPack.HtmlDocument();
-                doc.BackwardCompatibility = true;
                 doc.LoadHtml(input);
-                var divNode = doc.DocumentNode.ChildNodes[0];
+                HtmlElement divNode = doc.DocumentNode.ChildNodes[0] as HtmlElement;
 
                 divNode.Attributes.Add("name", "value1&quot;value2");
                 Assert.AreEqual("value1&quot;value2", divNode.Attributes[0].Value);
@@ -1120,9 +1075,8 @@ namespace HtmlAgilityPack.Tests
             {
                 var input = "<div>z</div>";
                 var doc = new HtmlAgilityPack.HtmlDocument();
-                doc.BackwardCompatibility = true;
                 doc.LoadHtml(input);
-                var divNode = doc.DocumentNode.ChildNodes[0];
+                HtmlElement divNode = doc.DocumentNode.ChildNodes[0] as HtmlElement;
 
                 divNode.Attributes.Add("name", "value1'value2");
                 divNode.Attributes[0].QuoteType = AttributeValueQuote.SingleQuote;
@@ -1133,71 +1087,8 @@ namespace HtmlAgilityPack.Tests
             {
                 var input = "<div>z</div>";
                 var doc = new HtmlAgilityPack.HtmlDocument();
-                doc.BackwardCompatibility = true;
                 doc.LoadHtml(input);
-                var divNode = doc.DocumentNode.ChildNodes[0];
-
-                divNode.Attributes.Add("name", "value1&#39;value2");
-                divNode.Attributes[0].QuoteType = AttributeValueQuote.SingleQuote;
-                Assert.AreEqual("value1&#39;value2", divNode.Attributes[0].Value);
-                Assert.AreEqual("<div name='value1&#39;value2'>z</div>", doc.DocumentNode.InnerHtml);
-            }
-
-            {
-                var input = "<div>z</div>";
-                var doc = new HtmlAgilityPack.HtmlDocument();
-                doc.BackwardCompatibility = false;
-                doc.LoadHtml(input);
-                var divNode = doc.DocumentNode.ChildNodes[0];
-
-                divNode.Attributes.Add("name", "value1value2");
-                Assert.AreEqual("value1value2", divNode.Attributes[0].Value);
-                Assert.AreEqual("<div name=\"value1value2\">z</div>", doc.DocumentNode.InnerHtml);
-            }
-
-            {
-                var input = "<div>z</div>";
-                var doc = new HtmlAgilityPack.HtmlDocument();
-                doc.BackwardCompatibility = false;
-                doc.LoadHtml(input);
-                var divNode = doc.DocumentNode.ChildNodes[0];
-
-                divNode.Attributes.Add("name", "value1\"value2");
-                Assert.AreEqual("value1\"value2", divNode.Attributes[0].Value);
-                Assert.AreEqual("<div name=\"value1&quot;value2\">z</div>", doc.DocumentNode.InnerHtml);
-            }
-
-            {
-                var input = "<div>z</div>";
-                var doc = new HtmlAgilityPack.HtmlDocument();
-                doc.BackwardCompatibility = false;
-                doc.LoadHtml(input);
-                var divNode = doc.DocumentNode.ChildNodes[0];
-
-                divNode.Attributes.Add("name", "value1&quot;value2");
-                Assert.AreEqual("value1&quot;value2", divNode.Attributes[0].Value);
-                Assert.AreEqual("<div name=\"value1&quot;value2\">z</div>", doc.DocumentNode.InnerHtml);
-            }
-
-            {
-                var input = "<div>z</div>";
-                var doc = new HtmlAgilityPack.HtmlDocument();
-                doc.BackwardCompatibility = false;
-                doc.LoadHtml(input);
-                var divNode = doc.DocumentNode.ChildNodes[0];
-
-                divNode.Attributes.Add("name", "value1'value2");
-                divNode.Attributes[0].QuoteType = AttributeValueQuote.SingleQuote;
-                Assert.AreEqual("value1'value2", divNode.Attributes[0].Value);
-                Assert.AreEqual("<div name='value1&#39;value2'>z</div>", doc.DocumentNode.InnerHtml);
-            }
-
-            {
-                var input = "<div>z</div>";
-                var doc = new HtmlAgilityPack.HtmlDocument();
-                doc.BackwardCompatibility = false;
-                doc.LoadHtml(input);
-                var divNode = doc.DocumentNode.ChildNodes[0];
+                HtmlElement divNode = doc.DocumentNode.ChildNodes[0] as HtmlElement;
 
                 divNode.Attributes.Add("name", "value1&#39;value2");
                 divNode.Attributes[0].QuoteType = AttributeValueQuote.SingleQuote;
@@ -1214,18 +1105,14 @@ namespace HtmlAgilityPack.Tests
             {
                 OptionEmptyCollection = true,
                 OptionAutoCloseOnEnd = true,
-                OptionWriteEmptyNodes = true,
-                // Disable backward compatibility to enable automatic html decoding
-                BackwardCompatibility = false
+                OptionWriteEmptyNodes = true
             };
 
             HtmlDocument doc2 = new HtmlDocument()
             {
                 OptionEmptyCollection = true,
                 OptionAutoCloseOnEnd = true,
-                OptionWriteEmptyNodes = true,
-                // Disable backward compatibility to enable automatic html decoding
-                BackwardCompatibility = false
+                OptionWriteEmptyNodes = true
             };
 
 

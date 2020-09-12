@@ -31,7 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)HtmlElementFlag.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HtmlNameTable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Nodes\HtmlElement.Encapsulator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Nodes\HtmlNode.Encapsulator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Nodes\HtmlNodeBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Nodes\HtmlNodeBase.Xpath.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Nodes\HtmlNodeCollection.cs" />

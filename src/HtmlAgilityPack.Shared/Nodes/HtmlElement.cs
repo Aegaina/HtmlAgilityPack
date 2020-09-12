@@ -10,7 +10,7 @@ namespace HtmlAgilityPack
     /// <summary>
     /// Represents an HTML element.
     /// </summary>
-    public partial class HtmlElement : HtmlNode
+    public class HtmlElement : HtmlNode
     {
         /// <summary>
         /// Constructor

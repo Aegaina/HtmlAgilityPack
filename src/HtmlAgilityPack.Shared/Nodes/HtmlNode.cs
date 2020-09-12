@@ -11,7 +11,7 @@ namespace HtmlAgilityPack
     /// <summary>
     /// Represents a true HTML node.
     /// </summary>
-    public abstract class HtmlNode : HtmlNodeBase, IHtmlNodeContainer
+    public abstract partial class HtmlNode : HtmlNodeBase, IHtmlNodeContainer
     {
         /// <summary>
         /// Constructor

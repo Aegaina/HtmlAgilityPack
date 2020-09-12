@@ -46,7 +46,7 @@ namespace HtmlAgilityPack.Tests.fx._4._5
 
             HtmlElement node = htmlDoc.CreateElement("strong");
             captionNode.AppendChild(node);
-            HtmlTextNode textNode = htmlDoc.CreateTextNode(string.Format("{0}: ", ex.GetType().FullName));
+            HtmlText textNode = htmlDoc.CreateTextNode(string.Format("{0}: ", ex.GetType().FullName));
             node.AppendChild(textNode);
 
             node = htmlDoc.CreateElement("span");
@@ -54,7 +54,7 @@ namespace HtmlAgilityPack.Tests.fx._4._5
             captionNode.AppendChild(node);
             //textNode.AppendChild(node);
 
-            HtmlCommentNode commentNode = htmlDoc.CreateComment("This is a comment");
+            HtmlComment commentNode = htmlDoc.CreateComment("This is a comment");
             captionNode.AppendChild(commentNode);
             //commentNode.AppendChild(htmlDoc.CreateComment("An inner comment?"));
 

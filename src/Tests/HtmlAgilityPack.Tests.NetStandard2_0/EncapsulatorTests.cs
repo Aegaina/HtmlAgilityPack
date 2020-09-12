@@ -36,15 +36,15 @@ namespace HtmlAgilityPack.Tests.NetStandard2_0
     [HasXPath]
     public class StackOverflowPage
     {
-        
+
         [XPath("//*[@id='questions']/div")]
         public IEnumerable<StackOverflowQuestion> Questions { get; set; }
-        
-        
-        
+
+
+
         [XPath("//*[@id='hot-network-questions']/ul//li")]
         public IEnumerable<HotNetworkQuestion> GetHotNetworkQuestions { get; set; }
-        
+
     }
 
     [HasXPath]
@@ -58,7 +58,7 @@ namespace HtmlAgilityPack.Tests.NetStandard2_0
 
         [XPath("/div[@class='summary']")]
         public QuestionBox Question { get; set; }
-       
+
         // The XPath below is an alternativ XPath if the uncommented one does not work
         // [XPath("/div[@class='summary']/div[3]/div")]
         [XPath("/div[@class='summary']/div[@class='started fr']/div")]
@@ -113,7 +113,7 @@ namespace HtmlAgilityPack.Tests.NetStandard2_0
         [XPath("/div[@class='user-action-time']/span")]
         public string RelativeTime { get; set; }
 
-        [XPath("/div[@class='user-details']/a","href")]
+        [XPath("/div[@class='user-details']/a", "href")]
         public string UserLink { get; set; }
 
         [XPath("/div[@class='user-details']/a")]
@@ -157,13 +157,13 @@ namespace HtmlAgilityPack.Tests.NetStandard2_0
     [HasXPath]
     [DebuggerDisplay("{Deu} : {Fa}")]
     public class Def
-    {        
+    {
 
         [XPath("/div[1]/div[@class='panel-title definition']/a/span[@class='de']")]
         public string Deu { get; set; }
 
 
-        
+
         [XPath("/div[1]/div[@class='panel-title definition']/a/span[@class='fa']")]
         public string Fa { get; set; }
 
@@ -182,7 +182,7 @@ namespace HtmlAgilityPack.Tests.NetStandard2_0
         [SkipNodeNotFound]
         [XPath("/div[2]/div[@class='panel-body']/div")]
         public IEnumerable<Example> Examples { get; set; }
-        
+
     }
 
 
