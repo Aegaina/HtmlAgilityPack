@@ -416,9 +416,9 @@ namespace HtmlAgilityPack
         /// Creates an HTML comment node.
         /// </summary>
         /// <returns>The new HTML comment node.</returns>
-        public HtmlCommentNode CreateComment()
+        public HtmlComment CreateComment()
         {
-            return (HtmlCommentNode)HtmlNodeFactory.Create(this, HtmlNodeType.Comment);
+            return (HtmlComment)HtmlNodeFactory.Create(this, HtmlNodeType.Comment);
         }
 
         /// <summary>
@@ -426,14 +426,14 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="comment">The comment text. May not be null.</param>
         /// <returns>The new HTML comment node.</returns>
-        public HtmlCommentNode CreateComment(string comment)
+        public HtmlComment CreateComment(string comment)
         {
             if (comment == null)
             {
                 throw new ArgumentNullException("comment");
             }
 
-            HtmlCommentNode c = CreateComment();
+            HtmlComment c = CreateComment();
             c.Comment = comment;
             return c;
         }
@@ -450,7 +450,7 @@ namespace HtmlAgilityPack
                 throw new ArgumentNullException("name");
             }
 
-            HtmlElement node = new HtmlElement(this, -1);
+            HtmlElement node = new HtmlElement(this);
             node.Name = name;
             return node;
         }
@@ -459,9 +459,9 @@ namespace HtmlAgilityPack
         /// Creates an HTML text node.
         /// </summary>
         /// <returns>The new HTML text node.</returns>
-        public HtmlTextNode CreateTextNode()
+        public HtmlText CreateTextNode()
         {
-            return (HtmlTextNode)HtmlNodeFactory.Create(this, HtmlNodeType.Text);
+            return (HtmlText)HtmlNodeFactory.Create(this, HtmlNodeType.Text);
         }
 
         /// <summary>
@@ -469,14 +469,14 @@ namespace HtmlAgilityPack
         /// </summary>
         /// <param name="text">The text of the node. May not be null.</param>
         /// <returns>The new HTML text node.</returns>
-        public HtmlTextNode CreateTextNode(string text)
+        public HtmlText CreateTextNode(string text)
         {
             if (text == null)
             {
                 throw new ArgumentNullException("text");
             }
 
-            HtmlTextNode t = CreateTextNode();
+            HtmlText t = CreateTextNode();
             t.Text = text;
             return t;
         }
@@ -949,7 +949,7 @@ namespace HtmlAgilityPack
                         // this is a hack: add it as a text node
                         HtmlNodeBase closenode = HtmlNodeFactory.Create(this, HtmlNodeType.Text, currentNode.OuterStartIndex);
                         closenode.OuterLength = currentNode.OuterLength;
-                        ((HtmlTextNode)closenode).Text = ((HtmlTextNode)closenode).Text.ToLowerInvariant();
+                        ((HtmlText)closenode).Text = ((HtmlText)closenode).Text.ToLowerInvariant();
                         if (_lastparentnode != null)
                         {
                             _lastparentnode.AppendChild(closenode);

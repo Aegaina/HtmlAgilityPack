@@ -16,9 +16,14 @@ namespace HtmlAgilityPack
         /// Constructor
         /// </summary>
         /// <param name="ownerDoc">The owner document of this node</param>
+        public HtmlElement(HtmlDocument ownerDoc) : base(HtmlNodeType.Element, ownerDoc, -1) { }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="ownerDoc">The owner document of this node</param>
         /// <param name="index"></param>
-        internal HtmlElement(HtmlDocument ownerDoc, int index)
-            : base(HtmlNodeType.Element, ownerDoc, index) { }
+        internal HtmlElement(HtmlDocument ownerDoc, int index) : base(HtmlNodeType.Element, ownerDoc, index) { }
 
         /// <summary>
         /// Initialize the Name property

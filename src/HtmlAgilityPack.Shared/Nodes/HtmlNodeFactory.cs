@@ -20,9 +20,9 @@ namespace HtmlAgilityPack
             switch (type)
             {
                 case HtmlNodeType.Comment:
-                    return new HtmlCommentNode(ownerDoc, index);
+                    return new HtmlComment(ownerDoc, index);
                 case HtmlNodeType.Text:
-                    return new HtmlTextNode(ownerDoc, index);
+                    return new HtmlText(ownerDoc, index);
                 case HtmlNodeType.Document:
                     return new HtmlDocumentNode(ownerDoc, index);
                 default:

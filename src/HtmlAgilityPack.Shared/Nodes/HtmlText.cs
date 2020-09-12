@@ -15,7 +15,7 @@ namespace HtmlAgilityPack
     /// <summary>
     /// Represents an HTML text node.
     /// </summary>
-    public class HtmlTextNode : HtmlNodeBase
+    public class HtmlText : HtmlNodeBase
     {
         /// <summary>
         /// Gets the name of a text node. It is actually defined as '#text'.
@@ -30,7 +30,7 @@ namespace HtmlAgilityPack
 
         #region Constructors
 
-        internal HtmlTextNode(HtmlDocument ownerdocument, int index)
+        internal HtmlText(HtmlDocument ownerdocument, int index)
             : base(HtmlNodeType.Text, ownerdocument, index)
         {
             Name = HtmlNodeTypeName;
@@ -90,7 +90,7 @@ namespace HtmlAgilityPack
         /// <returns>The cloned node.</returns>
         public override HtmlNodeBase Clone(bool deep)
         {
-            HtmlTextNode node = base.Clone(deep) as HtmlTextNode;
+            HtmlText node = base.Clone(deep) as HtmlText;
             if (node != null)
             {
                 node.Text = Text;
@@ -107,7 +107,7 @@ namespace HtmlAgilityPack
         {
             base.CopyFrom(node, deep);
 
-            HtmlTextNode normalSrc = node as HtmlTextNode;
+            HtmlText normalSrc = node as HtmlText;
             if (normalSrc == null)
             {
                 return;

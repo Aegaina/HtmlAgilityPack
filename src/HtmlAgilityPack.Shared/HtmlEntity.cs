@@ -737,7 +737,7 @@ namespace HtmlAgilityPack
                 }
             }
 
-            HtmlTextNode textResult = result as HtmlTextNode;
+            HtmlText textResult = result as HtmlText;
             if (textResult != null)
             {
                 textResult.Text = Entitize(textResult.Text, true, true);

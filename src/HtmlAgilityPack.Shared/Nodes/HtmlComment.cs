@@ -15,7 +15,7 @@ namespace HtmlAgilityPack
     /// <summary>
     /// Represents an HTML comment.
     /// </summary>
-    public class HtmlCommentNode : HtmlNodeBase
+    public class HtmlComment : HtmlNodeBase
     {
         /// <summary>
         /// Gets the name of a comment node. It is actually defined as '#comment'.
@@ -30,7 +30,7 @@ namespace HtmlAgilityPack
 
         #region Constructors
 
-        internal HtmlCommentNode(HtmlDocument ownerdocument, int index)
+        internal HtmlComment(HtmlDocument ownerdocument, int index)
             : base(HtmlNodeType.Comment, ownerdocument, index)
         {
             Name = HtmlNodeTypeName;
@@ -75,7 +75,7 @@ namespace HtmlAgilityPack
         /// <returns>The cloned node.</returns>
         public override HtmlNodeBase Clone(bool deep)
         {
-            HtmlCommentNode node = base.Clone(deep) as HtmlCommentNode;
+            HtmlComment node = base.Clone(deep) as HtmlComment;
             if (node != null)
             {
                 node.Comment = Comment;
@@ -92,7 +92,7 @@ namespace HtmlAgilityPack
         {
             base.CopyFrom(node, deep);
 
-            HtmlCommentNode normalSrc = node as HtmlCommentNode;
+            HtmlComment normalSrc = node as HtmlComment;
             if (normalSrc == null)
             {
                 return;
