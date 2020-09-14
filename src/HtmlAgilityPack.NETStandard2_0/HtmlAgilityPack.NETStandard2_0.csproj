@@ -18,7 +18,7 @@
     <Product>Html Agility Pack</Product>
     <Copyright>Copyright © ZZZ Projects Inc. 2014 - 2017</Copyright>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>HtmlAgilityPack.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>AGHtmlAgilityPack.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

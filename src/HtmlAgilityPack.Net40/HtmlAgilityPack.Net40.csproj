@@ -11,7 +11,7 @@
     <RootNamespace>HtmlAgilityPack</RootNamespace>
     <AssemblyName>HtmlAgilityPack</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>HtmlAgilityPack.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>AGHtmlAgilityPack.snk</AssemblyOriginatorKeyFile>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -70,7 +70,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="HtmlAgilityPack.snk" />
+    <None Include="AGHtmlAgilityPack.snk" />
   </ItemGroup>
   <Import Project="..\HtmlAgilityPack.Shared\HtmlAgilityPack.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
