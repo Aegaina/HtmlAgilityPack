@@ -6,7 +6,7 @@
 // Copyright ©ZZZ Projects Inc. 2014 - 2017. All rights reserved.
 
 #if !METRO
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     /// <summary>
     /// Represents the type of fragment in a mixed code document.

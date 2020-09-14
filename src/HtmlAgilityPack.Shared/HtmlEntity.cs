@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     /// <summary>
     /// A utility class to replace special characters by entities and vice-versa.

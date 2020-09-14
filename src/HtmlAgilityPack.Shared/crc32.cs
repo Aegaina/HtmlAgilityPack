@@ -7,7 +7,7 @@
 
 using System;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     /// <summary>
     /// A utility class to compute CRC32.

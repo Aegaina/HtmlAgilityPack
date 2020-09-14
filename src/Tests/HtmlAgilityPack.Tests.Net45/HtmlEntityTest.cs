@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace HtmlAgilityPack.Tests
+namespace Aegaina.HtmlAgilityPack.Tests
 {
     class HtmlEntityTest
     {

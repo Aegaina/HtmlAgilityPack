@@ -10,7 +10,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     /// <summary>
     /// Represents an HTML text node.

@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     /// <summary>
     /// Used for downloading and parsing html from the internet

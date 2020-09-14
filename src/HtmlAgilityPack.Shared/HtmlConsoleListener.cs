@@ -9,7 +9,7 @@
 using System;
 using System.Diagnostics;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     internal class HtmlConsoleListener : TraceListener
     {

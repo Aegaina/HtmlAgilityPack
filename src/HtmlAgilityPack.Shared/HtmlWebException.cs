@@ -7,7 +7,7 @@
 
 using System;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     /// <summary>
     /// Represents an exception thrown by the HtmlWeb utility class.

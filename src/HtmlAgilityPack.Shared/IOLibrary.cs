@@ -8,7 +8,7 @@
 #if !METRO
 using System.IO;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     internal struct IOLibrary
     {

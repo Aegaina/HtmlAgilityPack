@@ -16,7 +16,7 @@ using System.Text;
 using System.Xml;
 
 // ReSharper disable InconsistentNaming
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     /// <summary>
     /// Represents an HTML node.

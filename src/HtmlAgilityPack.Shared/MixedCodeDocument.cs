@@ -10,7 +10,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     /// <summary>
     /// Represents a document with mixed code and text. ASP, ASPX, JSP, are good example of such documents.

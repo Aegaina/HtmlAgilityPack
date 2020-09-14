@@ -14,7 +14,7 @@ using System.Diagnostics;
 
 // ReSharper disable InconsistentNaming
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     /// <summary>
     /// Represents an HTML attribute.

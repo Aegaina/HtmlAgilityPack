@@ -7,7 +7,7 @@
 
 using System.Xml;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     internal class HtmlNameTable : XmlNameTable
     {

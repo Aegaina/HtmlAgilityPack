@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Xml.XPath;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     public partial class HtmlNode
     {

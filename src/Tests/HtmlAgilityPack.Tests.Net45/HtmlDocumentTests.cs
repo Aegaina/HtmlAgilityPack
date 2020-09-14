@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
 
-namespace HtmlAgilityPack.Tests
+namespace Aegaina.HtmlAgilityPack.Tests
 {
     [TestFixture]
     public class HtmlDocumentTests

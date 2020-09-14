@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     internal class NameValuePairList
     {

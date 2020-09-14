@@ -39,7 +39,7 @@ using System.Reflection;
 
 #endregion
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     /// <summary>
     /// A utility class to get HTML document from HTTP.

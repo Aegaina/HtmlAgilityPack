@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HtmlAgilityPack.Tests.fx._4._5
+namespace Aegaina.HtmlAgilityPack.Tests.fx._4._5
 {
     [TestClass]
     public class UnitTest

@@ -3,7 +3,7 @@
     <metadata>
         <id>$id$</id>
         <!--<version>$version$-alpha</version>-->
-        <version>1.11.1.1-alpha</version>
+        <version>1.11.1.2-alpha</version>
         <description>$description$</description>
         <authors>ZZZ Projects,Simon Mourrier,Jeff Klawiter,Stephan Grell, Cathy Zhou</authors>
         <title>$title$</title>
@@ -13,7 +13,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <copyright>$copyright$</copyright>
         <tags>HTML</tags>
-        <releaseNotes>Change the assembly signature key</releaseNotes>
+        <releaseNotes>Change the namespace to avoid conflict</releaseNotes>
     </metadata>
     <files>
         <file src="bin\$configuration$\$id$.pdb" target="lib\net45" />

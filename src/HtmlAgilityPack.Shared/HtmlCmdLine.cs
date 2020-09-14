@@ -8,7 +8,7 @@
 using System;
 
 #if !NETSTANDARD1_3 && !METRO
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     internal class HtmlCmdLine
     {

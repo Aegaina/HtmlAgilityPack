@@ -5,7 +5,7 @@
 // More projects: http://www.zzzprojects.com/
 // Copyright ©ZZZ Projects Inc. 2014 - 2017. All rights reserved.
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     /// <summary>
     /// Represents the type of a node.

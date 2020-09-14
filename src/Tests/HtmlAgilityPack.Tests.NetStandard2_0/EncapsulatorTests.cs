@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Xunit;
 
-namespace HtmlAgilityPack.Tests.NetStandard2_0
+namespace Aegaina.HtmlAgilityPack.Tests.NetStandard2_0
 {
     public class EncapsulatorTests
     {

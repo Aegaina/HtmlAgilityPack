@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
-namespace HtmlAgilityPack.Tests
+namespace Aegaina.HtmlAgilityPack.Tests
 {
     [TestFixture]
     public class HtmlNode2

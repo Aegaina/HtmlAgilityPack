@@ -11,7 +11,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     public partial class HtmlDocument
     {

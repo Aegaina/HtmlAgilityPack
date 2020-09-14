@@ -9,7 +9,7 @@
 
 using System.Xml.XPath;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     public partial class HtmlDocument : IXPathNavigable
     {

@@ -8,7 +8,7 @@
 using System;
 using System.Text;
 
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     internal class EncodingFoundException : Exception
     {

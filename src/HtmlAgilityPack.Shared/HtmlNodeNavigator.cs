@@ -15,7 +15,7 @@ using System.Xml;
 using System.Xml.XPath;
 
 #pragma warning disable 0649
-namespace HtmlAgilityPack
+namespace Aegaina.HtmlAgilityPack
 {
     /// <summary>
     /// Represents an HTML navigator on an HTML document seen as a data store.

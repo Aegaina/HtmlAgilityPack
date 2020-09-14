@@ -8,7 +8,7 @@
     <ProjectGuid>{8DCFDE1C-263F-41D4-B518-9B7EE06F7D52}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HtmlAgilityPack</RootNamespace>
+    <RootNamespace>Aegaina.HtmlAgilityPack</RootNamespace>
     <AssemblyName>Aegaina.HtmlAgilityPack</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AGHtmlAgilityPack.snk</AssemblyOriginatorKeyFile>
